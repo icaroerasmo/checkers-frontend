@@ -1,7 +1,6 @@
 import { V2_MetaFunction, json } from "@remix-run/node";
 import { PieceType, Piece, Direction, TableResponse } from "./resources/types";
-import { useEffect } from "react";
-import userMove from "./resources/services/tableService";
+import { userMove, currentState } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
 
 export const meta: V2_MetaFunction = () => {
@@ -69,11 +68,8 @@ const pieceRender = (tablePieces: TableResponse, line: number, column: number) =
 
 export async function loader() {
 
-  let data = await userMove({
-    sessionId: "123",
-    line: 5,
-    column: 1,
-    directions: [Direction.FORWARD_LEFT]
+  let data = await currentState({
+    sessionId: "123"
   })
 
   let movesCore = data.movesCore;
