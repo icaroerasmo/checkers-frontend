@@ -1,15 +1,20 @@
 import { V2_MetaFunction, json } from "@remix-run/node";
-import { PieceType, Piece, Direction, TableResponse } from "./resources/types";
-import { userMove, currentState } from "./resources/services/tableService";
+import { PieceType, Piece, Direction, TableResponse, PossibleMove } from "./resources/types";
+import { userMove, currentState, possibleMoves } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
+import { BLACK_TILE, PLAYER_1_PIECE_COLOR, PLAYER_2_PIECE_COLOR, POSSIBLE_MOVE_COLOR, WHITE_TILE } from "./resources/colors";
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
 };
 
+let possibleMovesObj: PossibleMove[] = [{"captures":0,"movesLog":[{"from":[5,3],"captured":null,"to":[4,4],"playerTurn":"BLUE","moveType":"MOVE","direction":"FORWARD_LEFT","description":"Blue in [5,3] moved forward left to [4,4]"}]},{"captures":0,"movesLog":[{"from":[5,3],"captured":null,"to":[4,2],"playerTurn":"BLUE","moveType":"MOVE","direction":"FORWARD_RIGHT","description":"Blue in [5,3] moved forward right to [4,2]"}]}];
+
 const boardBgColor = (line:number, column:number) => {
-  return (line + column) % 2 == 0 ? "black" : "white";
+  return (line + column) % 2 == 0 ? WHITE_TILE : BLACK_TILE;
 }
+
+const sessionId: string = '123';
 
 const tableStyle = {
   margin: "0",
@@ -26,15 +31,33 @@ const lineStyle = (line:number, column:number) => ({
   border: "0.15em solid black"
 })
 
-const pieceWrapperStyle = {
-  display: "flex",
-  alignItems:"center",
-  justifyContent:"center"
+const pieceWrapperStyle = (line: number, column: number) => {
+  
+  let found = possibleMovesObj.find(pm => pm.movesLog.find(
+    ml => (ml.from[0] === line && ml.from[1] === column) ||
+    (ml.to[0] === line && ml.to[1] === column)))
+
+  let color;
+  
+  if(found) {
+    color = POSSIBLE_MOVE_COLOR; 
+  }
+
+  return ({
+    width: "100%",
+    height: "100%",
+    backgroundColor: color,
+    display: "flex",
+    alignItems:"center",
+    justifyContent:"center"
+  })
 }
 
 const pieceStyle = (piece: Piece) => {
-  const color = piece.type == PieceType.RED ? "red" : "blue"
+
+  const color = piece.type == PieceType.RED ? PLAYER_1_PIECE_COLOR : PLAYER_2_PIECE_COLOR
   return {
+    cursor: "pointer",
     margin: "0",
     borderRadius: "4.5em",
     backgroundColor: color,
@@ -43,27 +66,14 @@ const pieceStyle = (piece: Piece) => {
   }
 }
 
-const pieceRender = (tablePieces: TableResponse, line: number, column: number) => {
+const loadPossibleMoves = async (line: number, column: number) => {
+  let data = await possibleMoves({
+      sessionId,
+      line,
+      column
+    })
 
-  let pieceFinder = (list: Piece[], line: number, column: number): Piece | undefined => {
-    return list.find(piece => piece.line == line && piece.column == column)
-  }
-
-  let movesCore = tablePieces.movesCore;
-
-  if(!movesCore) return '';
-
-  let piece =
-    pieceFinder(movesCore.redPieces, line, column) || 
-    pieceFinder(movesCore.bluePieces, line, column);
-
-  if(!piece) return '';
-
-  return (
-    <div style={pieceWrapperStyle}>
-      <div style={pieceStyle(piece)}></div>
-    </div>
-  )
+  Object.assign(possibleMovesObj, data);
 }
 
 export async function loader() {
@@ -82,9 +92,30 @@ export async function loader() {
   return data
 }
 
+
+const Piece = ({tablePieces, line, column}: {tablePieces: TableResponse, line: number, column: number}) => {
+
+  let pieceFinder = (list: Piece[], line: number, column: number): Piece | undefined => {
+    return list.find(piece => piece.line == line && piece.column == column)
+  }
+
+  let movesCore = tablePieces.movesCore;
+
+  if(!movesCore) return null;
+
+  let piece =
+    pieceFinder(movesCore.redPieces, line, column) || 
+    pieceFinder(movesCore.bluePieces, line, column);
+
+  if(!piece) return null;
+
+  return (
+    <div onClick={() => {loadPossibleMoves(line, column)}} style={pieceStyle(piece)}/>
+  )
+}
+
 export default function Index() {
   const data: TableResponse = useLoaderData();
-  console.log(data)
   return (
       <table style={tableStyle}>
         <tbody>
@@ -92,7 +123,9 @@ export default function Index() {
             <tr className="line">
               {Array.from({ length: 8 }, (_value, columnIndex) => (
                 <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
-                  {pieceRender(data, lineIndex, columnIndex)}
+                  <div style={pieceWrapperStyle(lineIndex, columnIndex)}>
+                    <Piece tablePieces={data} line={lineIndex} column={columnIndex} />
+                  </div>
                 </td>
               ))}
             </tr>

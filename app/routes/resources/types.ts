@@ -47,3 +47,36 @@ export type TableResponse = {
     movesLog: string[]
     captures: number
 }
+
+export class AutomatedMove implements GameSession {
+    sessionId: string
+    line: number
+    column: number
+
+    constructor(sessionId: string, line: number, column: number) {
+        this.sessionId = sessionId
+        this.line = line
+        this.column = column
+    }
+
+}
+
+export enum MoveType {
+    MOVE = "MOVE",
+    CAPTURE = "CAPTURE"
+}
+
+export type MovesLog = {
+    from: number[]
+    captured: number[]
+    to: number[]
+    playerTurn: PieceType
+    moveType: MoveType
+    direction: Direction
+    description: string
+}
+
+export type PossibleMove = {
+    captures: number
+    movesLog: MovesLog[]
+}
