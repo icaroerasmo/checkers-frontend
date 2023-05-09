@@ -59,13 +59,13 @@ export const pieceWrapperStyle = (possibleMoves: PossibleMove[], line: number, c
     })
 }
   
-export const pieceStyle = (piece: Piece) => {
+export const pieceStyle = (piece: Piece, isTurn: boolean) => {
 
     const color = piece.type == PieceType.RED ?
         PLAYER_1_PIECE_COLOR : PLAYER_2_PIECE_COLOR
 
     return {
-        cursor: "pointer",
+        cursor: isTurn ? "pointer" : undefined,
         margin: "0",
         borderRadius: "4.5em",
         border: "0.1em solid #a0a0a0",

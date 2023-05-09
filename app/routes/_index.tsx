@@ -15,6 +15,8 @@ const pieceFinder = (list: Piece[], line: number, column: number): Piece | undef
   return list.find(piece => piece.line == line && piece.column == column)
 }
 
+const isTurn = (piece: Piece | undefined, playerTurn: PieceType) => !!piece && piece.type === playerTurn 
+
 export async function loader() {
   
   let data = await currentState({sessionId})
@@ -47,10 +49,7 @@ export default function Index() {
       pieceFinder(movesCore.bluePieces, line, column) ||
       pieceFinder(movesCore.redPieces, line, column)
 
-    if(piece && piece.type != movesCore.playerTurn) {
-      // setData(
-      //   {tableResponse: data.tableResponse,
-      //     possibleMoves: []})
+    if(!isTurn(piece, movesCore.playerTurn)) {
       return;
     }
     
@@ -63,8 +62,9 @@ export default function Index() {
   }
 
   const Piece = ({line, column}: {line: number, column: number}) => {
-  
-    let movesCore = data.tableResponse.movesCore;
+
+    const tableResponse: TableResponse = data.tableResponse;
+    const movesCore: MovesCore = tableResponse.movesCore;
   
     if(!movesCore) return null;
   
@@ -75,7 +75,7 @@ export default function Index() {
     if(!piece) return null;
   
     return (
-      <div onClick={() => {loadPossibleMoves(line, column)}} style={pieceStyle(piece)}/>
+      <div onClick={() => {loadPossibleMoves(line, column)}} style={pieceStyle(piece, isTurn(piece, movesCore.playerTurn))}/>
     )
   }
 
