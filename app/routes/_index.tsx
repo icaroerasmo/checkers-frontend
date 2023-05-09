@@ -1,5 +1,5 @@
 import { V2_MetaFunction, json } from "@remix-run/node";
-import { PieceType, Piece, Direction, TableResponse, PossibleMove } from "./resources/types";
+import { PieceType, Piece, Direction, TableResponse, PossibleMove, MovesCore } from "./resources/types";
 import { userMove, currentState, possibleMoves } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
@@ -10,6 +10,10 @@ export const meta: V2_MetaFunction = () => {
 };
 
 const sessionId = '123'
+
+const pieceFinder = (list: Piece[], line: number, column: number): Piece | undefined => {
+  return list.find(piece => piece.line == line && piece.column == column)
+}
 
 export async function loader() {
   
@@ -35,14 +39,30 @@ export default function Index() {
   const [data, setData] = useState(tableState);
   
   const loadPossibleMoves = (line: number, column: number) => {
-    possibleMoves({sessionId, line, column}).then(res => setData({tableResponse: data.tableResponse, possibleMoves: res}))
+
+    const tableResponse: TableResponse = data.tableResponse;
+    const movesCore: MovesCore = tableResponse.movesCore;
+
+    const piece: Piece | undefined =
+      pieceFinder(movesCore.bluePieces, line, column) ||
+      pieceFinder(movesCore.redPieces, line, column)
+
+    if(piece && piece.type != movesCore.playerTurn) {
+      // setData(
+      //   {tableResponse: data.tableResponse,
+      //     possibleMoves: []})
+      return;
+    }
+    
+    possibleMoves({sessionId, line, column}).
+      then(res => setData(
+        {
+          tableResponse: data.tableResponse,
+          possibleMoves: res
+        }))
   }
 
   const Piece = ({line, column}: {line: number, column: number}) => {
-
-    let pieceFinder = (list: Piece[], line: number, column: number): Piece | undefined => {
-      return list.find(piece => piece.line == line && piece.column == column)
-    }
   
     let movesCore = data.tableResponse.movesCore;
   
@@ -60,7 +80,7 @@ export default function Index() {
   }
 
   return (
-      <table style={tableStyle}>
+      <table style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
         <tbody>
           {Array.from({ length: 8 }, (_value, lineIndex) => (
             <tr className="line">
