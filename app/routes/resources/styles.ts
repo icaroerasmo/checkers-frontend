@@ -37,19 +37,21 @@ export const pieceWrapperStyle = (possibleMoves: PossibleMove[], line: number, c
         piecesComparator(ml.to) ||
         piecesComparator(ml.captured))
 
-    let color;
+    let color, cursor;
 
     if(moveFound) {
+        cursor = "pointer"
         if(piecesComparator(moveFound.from)) {
-        color = PIECE_FROM_COLOR;
+            color = PIECE_FROM_COLOR;
         } else if(piecesComparator(moveFound.to)) {
-        color = POSSIBLE_MOVE_COLOR; 
+            color = POSSIBLE_MOVE_COLOR; 
         } else {
-        color = 'blue'
+            color = 'blue'
         }
     }
 
     return ({
+        cursor,
         width: "100%",
         height: "100%",
         backgroundColor: color,
