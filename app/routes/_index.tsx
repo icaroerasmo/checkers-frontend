@@ -15,17 +15,20 @@ const pieceFinder = (list: Piece[], line: number, column: number): Piece | undef
   return list.find(piece => piece.line == line && piece.column == column)
 }
 
-const isTurn = (piece: Piece | undefined, playerTurn: PieceType) => !!piece && piece.type === playerTurn 
+const isTurn = (piece: Piece | undefined, playerTurn: PieceType) => !!piece && piece.type === playerTurn
+
+const movesCoreTransformer = (movesCore: MovesCore) : MovesCore => ({
+  playerTurn: movesCore.playerTurn,
+  redPieces: movesCore.redPieces.map(p => ({... p, type: PieceType.RED})),
+  bluePieces: movesCore.bluePieces.map(p => ({... p, type: PieceType.BLUE}))
+})
 
 export async function loader() {
   
   let data = await currentState({sessionId})
 
-  let movesCore = data.movesCore;
-
   if(data.movesCore) {
-    movesCore.redPieces = movesCore.redPieces.map(p => ({... p, type: PieceType.RED}))
-    movesCore.bluePieces = movesCore.bluePieces.map(p => ({... p, type: PieceType.BLUE}))
+    data.movesCore = movesCoreTransformer(data.movesCore);
   }
 
   return data
@@ -81,7 +84,10 @@ export default function Index() {
       directions:foundMove.movesLog.map(ml => ml.direction)
     }
 
-    userMove(userMoveObj).then((response) => setData({tableResponse: response, possibleMoves: []}))
+    userMove(userMoveObj).then((response) => {
+      response.movesCore = movesCoreTransformer(response.movesCore)
+      setData({tableResponse: response, possibleMoves: []})
+    })
   }
 
   const Piece = ({line, column}: {line: number, column: number}) => {
