@@ -1,6 +1,6 @@
 import { V2_MetaFunction, json } from "@remix-run/node";
 import { PieceType, Piece, Direction, TableResponse, PossibleMove, MovesCore } from "./resources/types";
-import { userMove, currentState, possibleMoves } from "./resources/services/tableService";
+import { userMove, currentState, getPossibleMoves } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { lineStyle, pieceStyle, pieceWrapperStyle, tableStyle } from "./resources/styles";
@@ -39,43 +39,61 @@ export default function Index() {
   }
 
   const [data, setData] = useState(tableState);
+
+  const {tableResponse, possibleMoves} = data;
+  const movesCore: MovesCore = tableResponse.movesCore;
+  const {bluePieces, redPieces, playerTurn}: MovesCore = movesCore;
   
   const loadPossibleMoves = (line: number, column: number) => {
 
-    const tableResponse: TableResponse = data.tableResponse;
-    const movesCore: MovesCore = tableResponse.movesCore;
-
     const piece: Piece | undefined =
-      pieceFinder(movesCore.bluePieces, line, column) ||
-      pieceFinder(movesCore.redPieces, line, column)
+      pieceFinder(bluePieces, line, column) ||
+      pieceFinder(redPieces, line, column)
 
-    if(!isTurn(piece, movesCore.playerTurn)) {
+    if(!isTurn(piece, playerTurn)) {
       return;
     }
     
-    possibleMoves({sessionId, line, column}).
-      then(res => setData(
-        {
-          tableResponse: data.tableResponse,
-          possibleMoves: res
-        }))
+    getPossibleMoves({sessionId, line, column}).
+      then(possibleMoves =>
+        setData({tableResponse, possibleMoves}))
+  }
+
+  const doUserMove = (line: number, column: number) => {
+    let foundMove = possibleMoves.find(pm => {
+      let moves = pm.movesLog;
+      let lastMove = moves[moves.length-1];
+      return (lastMove.to[0] === line && lastMove.to[1] === column) ||
+        lastMove.captured[0] === line && lastMove.captured[1] === column
+    })
+
+    if(!foundMove) {
+      setData({tableResponse: data.tableResponse, possibleMoves: []})
+      return;
+    }
+
+    let firstMove = foundMove.movesLog[0];
+
+    let userMoveObj = {
+      sessionId,
+      line: firstMove.from[0],
+      column: firstMove.from[1],
+      directions:foundMove.movesLog.map(ml => ml.direction)
+    }
+
+    userMove(userMoveObj).then((response) => setData({tableResponse: response, possibleMoves: []}))
   }
 
   const Piece = ({line, column}: {line: number, column: number}) => {
-
-    const tableResponse: TableResponse = data.tableResponse;
-    const movesCore: MovesCore = tableResponse.movesCore;
-  
-    if(!movesCore) return null;
   
     let piece =
-      pieceFinder(movesCore.redPieces, line, column) || 
-      pieceFinder(movesCore.bluePieces, line, column);
+      pieceFinder(redPieces, line, column) || 
+      pieceFinder(bluePieces, line, column);
   
     if(!piece) return null;
   
     return (
-      <div onClick={() => {loadPossibleMoves(line, column)}} style={pieceStyle(piece, isTurn(piece, movesCore.playerTurn))}/>
+      <div onClick={() => {loadPossibleMoves(line, column)}} style={pieceStyle(piece, isTurn(piece, playerTurn))}/>
     )
   }
 
@@ -86,7 +104,7 @@ export default function Index() {
             <tr className="line">
               {Array.from({ length: 8 }, (_value, columnIndex) => (
                 <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
-                  <div style={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
+                  <div onClick = {() => doUserMove(lineIndex, columnIndex)} style={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
                     <Piece line={lineIndex} column={columnIndex} />
                   </div>
                 </td>

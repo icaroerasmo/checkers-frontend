@@ -26,7 +26,7 @@ export async function currentState (gameSession: GameSession): Promise<TableResp
     return await response.json();
 }
 
-export async function possibleMoves(automated: AutomatedMove): Promise<PossibleMove[]> {
+export async function getPossibleMoves(automated: AutomatedMove): Promise<PossibleMove[]> {
     const response = await fetch(`${baseUrl}/possible-moves`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
