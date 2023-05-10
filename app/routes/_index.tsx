@@ -67,7 +67,7 @@ export default function Index() {
       let moves = pm.movesLog;
       let lastMove = moves[moves.length-1];
       return (lastMove.to[0] === line && lastMove.to[1] === column) ||
-        lastMove.captured[0] === line && lastMove.captured[1] === column
+        (!!lastMove.captured && lastMove.captured[0] === line && lastMove.captured[1] === column)
     })
 
     if(!foundMove) {
