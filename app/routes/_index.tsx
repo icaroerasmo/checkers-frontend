@@ -1,6 +1,6 @@
 import { V2_MetaFunction, json } from "@remix-run/node";
 import { PieceType, Piece, Direction, TableResponse, PossibleMove, MovesCore } from "./resources/types";
-import { userMove, currentState, getPossibleMoves } from "./resources/services/tableService";
+import { userMove, currentState, getPossibleMoves, minimaxMove } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { lineStyle, pieceStyle, pieceWrapperStyle, tableStyle } from "./resources/styles";
@@ -87,6 +87,10 @@ export default function Index() {
     userMove(userMoveObj).then((response) => {
       response.movesCore = movesCoreTransformer(response.movesCore)
       setData({tableResponse: response, possibleMoves: []})
+      minimaxMove({sessionId}).then(response => {
+        response.movesCore = movesCoreTransformer(response.movesCore)
+        setData({tableResponse: response, possibleMoves: []})
+      })
     })
   }
 
