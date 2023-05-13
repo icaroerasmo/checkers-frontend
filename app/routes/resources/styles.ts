@@ -8,6 +8,8 @@ const boardBg = (line: number, column: number) => {
     return color /*+ backgroundImg*/;
 }
 
+export const displayFlex = {display:"flex", alignItems: "center", justifyContent: "center"}
+
   
 export const tableStyle = {
     margin: "0",

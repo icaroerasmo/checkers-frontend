@@ -3,7 +3,8 @@ import { PieceType, Piece, Direction, TableResponse, PossibleMove, MovesCore } f
 import { userMove, currentState, getPossibleMoves, minimaxMove } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { lineStyle, pieceStyle, pieceWrapperStyle, tableStyle } from "./resources/styles";
+import { displayFlex, lineStyle, pieceStyle, pieceWrapperStyle, tableStyle } from "./resources/styles";
+import { PLAYER_1_PIECE_COLOR, PLAYER_2_PIECE_COLOR } from "./resources/colors";
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
@@ -110,8 +111,11 @@ export default function Index() {
   }
 
   return (
-    <div style={{display:"flex", alignItems: "center", justifyContent: "center"}}>
+    <div style={displayFlex}>
       <div>
+        <div style={displayFlex}>
+          <div style={{color: PLAYER_1_PIECE_COLOR}}><h1>Red {data.tableResponse.movesCore.redPieces.length}</h1></div> <div style={{padding: "0 2em 0 2em"}}></div> <div style={{color: PLAYER_2_PIECE_COLOR}}><h1>{data.tableResponse.movesCore.bluePieces.length} Blue</h1></div>
+        </div>
         <table style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
           <tbody>
             {Array.from({ length: 8 }, (_value, lineIndex) => (
