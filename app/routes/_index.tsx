@@ -87,10 +87,12 @@ export default function Index() {
     userMove(userMoveObj).then((response) => {
       response.movesCore = movesCoreTransformer(response.movesCore)
       setData({tableResponse: response, possibleMoves: []})
-      minimaxMove({sessionId}).then(response => {
-        response.movesCore = movesCoreTransformer(response.movesCore)
-        setData({tableResponse: response, possibleMoves: []})
-      })
+      if(response.movesCore.redPieces.length && response.movesCore.bluePieces.length) {
+        minimaxMove({sessionId}).then(response => {
+          response.movesCore = movesCoreTransformer(response.movesCore)
+          setData({tableResponse: response, possibleMoves: []})
+        })
+      }
     })
   }
 
@@ -108,20 +110,24 @@ export default function Index() {
   }
 
   return (
-      <table style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
-        <tbody>
-          {Array.from({ length: 8 }, (_value, lineIndex) => (
-            <tr className="line">
-              {Array.from({ length: 8 }, (_value, columnIndex) => (
-                <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
-                  <div onClick = {() => doUserMove(lineIndex, columnIndex)} style={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
-                    <Piece line={lineIndex} column={columnIndex} />
-                  </div>
-                </td>
-              ))}
-            </tr>
-          )).reverse()}
-        </tbody>
-      </table>
+    <div style={{display:"flex", alignItems: "center", justifyContent: "center"}}>
+      <div>
+        <table style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
+          <tbody>
+            {Array.from({ length: 8 }, (_value, lineIndex) => (
+              <tr className="line">
+                {Array.from({ length: 8 }, (_value, columnIndex) => (
+                  <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
+                    <div onClick = {() => doUserMove(lineIndex, columnIndex)} style={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
+                      <Piece line={lineIndex} column={columnIndex} />
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            )).reverse()}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }

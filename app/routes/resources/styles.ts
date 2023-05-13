@@ -1,9 +1,13 @@
-import { BLACK_TILE_COLOR, PIECE_FROM_COLOR, PLAYER_1_PIECE_COLOR, PLAYER_2_PIECE_COLOR, POSSIBLE_MOVE_COLOR, WHITE_TILE_COLOR } from "./colors";
+import { WHITE_TILE_COLOR, PIECE_CAPTURE_COLOR, PIECE_FROM_COLOR, PLAYER_1_PIECE_COLOR, PLAYER_2_PIECE_COLOR, POSSIBLE_MOVE_COLOR, BLACK_TILE_COLOR } from "./colors";
 import { Piece, PieceType, PossibleMove } from "./types";
 
-export const boardBgColor = (line:number, column:number) => {
-    return (line + column) % 2 == 0 ? WHITE_TILE_COLOR : BLACK_TILE_COLOR;
+const boardBg = (line: number, column: number) => {
+    const isBlackTile = (line + column) % 2 == 0
+    const color = isBlackTile ? BLACK_TILE_COLOR : WHITE_TILE_COLOR;
+    const backgroundImg = isBlackTile ? " url('/img/geometric_texture2.png') repeat scroll center" : "";
+    return color /*+ backgroundImg*/;
 }
+
   
 export const tableStyle = {
     margin: "0",
@@ -16,7 +20,7 @@ export const lineStyle = (line:number, column:number) => ({
     height: "6em",
     margin: "0",
     padding: "0",
-    backgroundColor: boardBgColor(line, column),
+    background: boardBg(line, column),
     border: "0.15em solid black"
 })
   
@@ -46,7 +50,7 @@ export const pieceWrapperStyle = (possibleMoves: PossibleMove[], line: number, c
         } else if(piecesComparator(moveFound.to)) {
             color = POSSIBLE_MOVE_COLOR; 
         } else {
-            color = 'blue'
+            color = PIECE_CAPTURE_COLOR;
         }
     }
 
