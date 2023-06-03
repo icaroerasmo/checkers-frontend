@@ -73,6 +73,9 @@ export const pieceStyle = (piece: Piece, isTurn: boolean) => {
         PLAYER_1_PIECE_COLOR : PLAYER_2_PIECE_COLOR
 
     return {
+        display: "flex",
+        alignItems:"center",
+        justifyContent:"center",
         cursor: isTurn ? "pointer" : undefined,
         margin: "0",
         borderRadius: "4.5em",

@@ -6,7 +6,7 @@ export enum PieceType {
 export interface Piece {
     line: number
     column: number
-    isChecker: boolean
+    checker: boolean
     type: PieceType
 }
 

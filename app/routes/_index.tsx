@@ -2,9 +2,11 @@ import { V2_MetaFunction, json } from "@remix-run/node";
 import { PieceType, Piece, Direction, TableResponse, PossibleMove, MovesCore } from "./resources/types";
 import { userMove, currentState, getPossibleMoves, minimaxMove } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { displayFlex, lineStyle, pieceStyle, pieceWrapperStyle, tableStyle } from "./resources/styles";
 import { PLAYER_1_PIECE_COLOR, PLAYER_2_PIECE_COLOR } from "./resources/colors";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCrown } from '@fortawesome/free-solid-svg-icons'
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
@@ -102,11 +104,19 @@ export default function Index() {
     let piece =
       pieceFinder(redPieces, line, column) || 
       pieceFinder(bluePieces, line, column);
+
+    let icon = null;
   
     if(!piece) return null;
   
+    if(piece.checker) {
+      icon = (<FontAwesomeIcon icon={faCrown} style={{"color": "#acbd2e", "fontSize": "2em"}}/>)
+    }
+
     return (
-      <div onClick={() => {loadPossibleMoves(line, column)}} style={pieceStyle(piece, isTurn(piece, playerTurn))}/>
+      <div onClick={() => {loadPossibleMoves(line, column)}} style={pieceStyle(piece, isTurn(piece, playerTurn))}>
+        {icon}
+      </div>
     )
   }
 
@@ -114,7 +124,9 @@ export default function Index() {
     <div style={displayFlex}>
       <div>
         <div style={displayFlex}>
-          <div style={{color: PLAYER_1_PIECE_COLOR}}><h1>Red {data.tableResponse.movesCore.redPieces.length}</h1></div> <div style={{padding: "0 2em 0 2em"}}></div> <div style={{color: PLAYER_2_PIECE_COLOR}}><h1>{data.tableResponse.movesCore.bluePieces.length} Blue</h1></div>
+          <div style={{color: PLAYER_1_PIECE_COLOR}}>
+            <h1>Red {data.tableResponse.movesCore.redPieces.length}</h1>
+          </div> <div style={{padding: "0 2em 0 2em"}}></div> <div style={{color: PLAYER_2_PIECE_COLOR}}><h1>{data.tableResponse.movesCore.bluePieces.length} Blue</h1></div>
         </div>
         <table style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
           <tbody>
