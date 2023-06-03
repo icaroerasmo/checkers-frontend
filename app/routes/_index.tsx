@@ -3,7 +3,7 @@ import { PieceType, Piece, Direction, TableResponse, PossibleMove, MovesCore } f
 import { userMove, currentState, getPossibleMoves, minimaxMove } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
-import { displayFlex, lineStyle, pieceStyle, pieceWrapperStyle, tableStyle } from "./resources/styles";
+import { crownStyle, displayFlex, lineStyle, pieceStyle, pieceWrapperStyle, tableStyle } from "./resources/styles";
 import { PLAYER_1_PIECE_COLOR, PLAYER_2_PIECE_COLOR } from "./resources/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
@@ -110,7 +110,7 @@ export default function Index() {
     if(!piece) return null;
   
     if(piece.checker) {
-      icon = (<FontAwesomeIcon icon={faCrown} style={{"color": "#acbd2e", "fontSize": "2em"}}/>)
+      icon = (<FontAwesomeIcon icon={faCrown} style={crownStyle}/>)
     }
 
     return (

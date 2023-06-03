@@ -10,7 +10,8 @@ const boardBg = (line: number, column: number) => {
 
 export const displayFlex = {display:"flex", alignItems: "center", justifyContent: "center"}
 
-  
+export const crownStyle = {"color": "#acbd2e", "fontSize": "2em"} 
+
 export const tableStyle = {
     margin: "0",
     padding: "0",
