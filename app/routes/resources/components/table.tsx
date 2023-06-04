@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { movesCoreTransformer } from "../util/helpers";
 
-export default function Table ({sessionId, data, setData}: {sessionId: string, data: any, setData: Function}) {
+export default function Table ({sessionId, state}: {sessionId: string, state: any}) {
+
+    const [data, setData] = state
 
     const pieceFinder = (list: Piece[], line: number, column: number): Piece | undefined => {
       return list.find(piece => piece.line == line && piece.column == column)

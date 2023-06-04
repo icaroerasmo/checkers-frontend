@@ -32,7 +32,8 @@ export default function Index() {
     possibleMoves: []
   })
 
-  const [data, setData] = useState(tableState);
+  const state = useState(tableState);
+  const [data] = state;
 
   return (
     <div style={displayFlex}>
@@ -46,7 +47,7 @@ export default function Index() {
             <h1>{data.tableResponse.movesCore.bluePieces.length} Blue</h1>
           </div>
         </div>
-        <Table sessionId={sessionId} data={data} setData={setData} />
+        <Table sessionId={sessionId} state={state} />
       </div>
     </div>
   );
