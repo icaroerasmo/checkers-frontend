@@ -1,6 +1,7 @@
-import { GameSession, TableResponse, UserMove, AutomatedMove, PossibleMove } from "../types";
+import { GameSession, TableResponse, UserMove, AutomatedMove, PossibleMove, MovesCore, PieceType } from "../models/types";
 
 const baseUrl = 'http://localhost:8080/api/v1';
+
 
 export async function userMove (userMove: UserMove): Promise<TableResponse> {
 

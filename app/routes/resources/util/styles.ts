@@ -1,5 +1,16 @@
-import { WHITE_TILE_COLOR, PIECE_CAPTURE_COLOR, PIECE_FROM_COLOR, PLAYER_1_PIECE_COLOR, PLAYER_2_PIECE_COLOR, POSSIBLE_MOVE_COLOR, BLACK_TILE_COLOR } from "./colors";
-import { Piece, PieceType, PossibleMove } from "./types";
+import { 
+    WHITE_TILE_COLOR,
+    PIECE_CAPTURE_COLOR,
+    PIECE_FROM_COLOR,
+    PLAYER_1_PIECE_COLOR,
+    PLAYER_2_PIECE_COLOR,
+    POSSIBLE_MOVE_COLOR,
+    BLACK_TILE_COLOR,
+    PIECE_BORDER_COLOR,
+    MAIN_BODER_COLOR,
+    CROWN_COLOR
+} from "../constants/colors";
+import { Piece, PieceType, PossibleMove } from "../models/types";
 
 const boardBg = (line: number, column: number) => {
     const isBlackTile = (line + column) % 2 == 0
@@ -10,12 +21,12 @@ const boardBg = (line: number, column: number) => {
 
 export const displayFlex = {display:"flex", alignItems: "center", justifyContent: "center"}
 
-export const crownStyle = {"color": "#acbd2e", "fontSize": "2em"} 
+export const crownStyle = {"color": CROWN_COLOR, "fontSize": "2em"} 
 
 export const tableStyle = {
     margin: "0",
     padding: "0",
-    border: "0.3em solid black"
+    border: "0.3em solid " + MAIN_BODER_COLOR
 }
   
 export const lineStyle = (line:number, column:number) => ({
@@ -24,7 +35,7 @@ export const lineStyle = (line:number, column:number) => ({
     margin: "0",
     padding: "0",
     background: boardBg(line, column),
-    border: "0.15em solid black"
+    border: "0.15em solid " + MAIN_BODER_COLOR
 })
   
 export const pieceWrapperStyle = (possibleMoves: PossibleMove[], line: number, column: number) => {
@@ -80,7 +91,7 @@ export const pieceStyle = (piece: Piece, isTurn: boolean) => {
         cursor: isTurn ? "pointer" : undefined,
         margin: "0",
         borderRadius: "4.5em",
-        border: "0.1em solid #a0a0a0",
+        border: "0.1em solid " + PIECE_BORDER_COLOR,
         backgroundColor: color,
         width: "4.5em",
         height: "4.5em"
