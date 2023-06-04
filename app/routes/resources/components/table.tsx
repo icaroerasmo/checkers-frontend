@@ -81,7 +81,7 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
     
         if(piece.checker) {
             icon = (
-                <Grid container direction="row" alignItems="center" style={crownStyle}>
+                <Grid container direction="row" alignItems="center" justifyContent="center" style={crownStyle}>
                     <Grid container direction="column" alignItems="center">
                         <Grid item xs={12}>
                             <FontAwesomeIcon icon={faCrown}/>
@@ -99,26 +99,26 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
     }
 
     return (
-        <table style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
-            <tbody>
-                {Array.from({ length: 8 }, (_value, lineIndex) => (
-                <tr className="line">
-                    {Array.from({ length: 8 }, (_value, columnIndex) => (
-                        <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
-                            <Grid container direction="row" alignItems="center"
-                                onClick = {() => doUserMove(lineIndex, columnIndex)}
-                                style={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
-                                    <Grid container direction="column" alignItems="center">
-                                        <Grid item xs={12}>
-                                            <Piece line={lineIndex} column={columnIndex} />
+            <table style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
+                <tbody>
+                    {Array.from({ length: 8 }, (_value, lineIndex) => (
+                    <tr className="line">
+                        {Array.from({ length: 8 }, (_value, columnIndex) => (
+                            <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
+                                <Grid container direction="row" alignItems="center" justifyContent="center"
+                                    onClick = {() => doUserMove(lineIndex, columnIndex)}
+                                    style={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
+                                        <Grid container direction="column" alignItems="center" justifyContent="center">
+                                            <Grid item xs={12}>
+                                                <Piece line={lineIndex} column={columnIndex} />
+                                            </Grid>
                                         </Grid>
-                                    </Grid>
-                            </Grid>
-                        </td>
-                    ))}
-                </tr>
-                )).reverse()}
-            </tbody>
-        </table>
+                                </Grid>
+                            </td>
+                        ))}
+                    </tr>
+                    )).reverse()}
+                </tbody>
+            </table>
     )
 }
