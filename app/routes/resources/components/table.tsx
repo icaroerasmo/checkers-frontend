@@ -26,7 +26,7 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
         pieceFinder(redPieces, line, column)
 
         if(!isTurn(piece, playerTurn)) {
-        return;
+            return;
         }
         
         getPossibleMoves({sessionId, line, column}).

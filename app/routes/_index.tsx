@@ -1,5 +1,5 @@
 import { V2_MetaFunction } from "@remix-run/node";
-import { displayFlex } from "./resources/util/styles";
+import { flexAlignCenter } from "./resources/util/styles";
 import { currentState } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
 import { PLAYER_1_PIECE_COLOR, PLAYER_2_PIECE_COLOR } from "./resources/constants/colors";
@@ -36,9 +36,9 @@ export default function Index() {
   const [data] = state;
 
   return (
-    <div style={displayFlex}>
+    <div style={flexAlignCenter}>
       <div>
-        <div style={displayFlex}>
+        <div style={flexAlignCenter}>
           <div style={{color: PLAYER_1_PIECE_COLOR}}>
             <h1>Red {data.tableResponse.movesCore.redPieces.length}</h1>
           </div>
