@@ -1,13 +1,12 @@
 import { V2_MetaFunction } from "@remix-run/node";
-import { flexAlignCenter } from "./resources/util/styles";
 import { currentState } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
-import { PLAYER_1_PIECE_COLOR, PLAYER_2_PIECE_COLOR } from "./resources/constants/colors";
 import { useState } from "react";
 import { TableResponse, PossibleMove } from "./resources/models/types";
 import Table from "./resources/components/table";
 import { movesCoreTransformer } from "./resources/util/helpers";
 import Scoreboard from "./resources/components/scoreboard";
+import { Grid } from "@mui/material";
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
@@ -36,11 +35,13 @@ export default function Index() {
   const state = useState(tableState);
 
   return (
-    <div style={flexAlignCenter}>
-      <div>
-        <Scoreboard state={state}/>
+    <Grid container direction="row" alignItems="center" justifyContent="space-around">
+      <Grid item xs={3}>
+          <Scoreboard state={state}/>
+      </Grid>
+      <Grid item xs={6}>
         <Table sessionId={sessionId} state={state} />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 }

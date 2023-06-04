@@ -4,6 +4,7 @@ import { MovesCore, Piece, PieceType, PossibleMove, MovesLog } from "../models/t
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { movesCoreTransformer } from "../util/helpers";
+import { Grid } from "@mui/material";
 
 export default function Table ({sessionId, state}: {sessionId: string, state: any}) {
 
@@ -80,9 +81,13 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
     
         if(piece.checker) {
             icon = (
-                <div style={crownStyle}>
-                    <FontAwesomeIcon icon={faCrown}/>
-                </div>
+                <Grid container direction="row" alignItems="center" style={crownStyle}>
+                    <Grid container direction="column" alignItems="center">
+                        <Grid item xs={12}>
+                            <FontAwesomeIcon icon={faCrown}/>
+                        </Grid>
+                    </Grid>
+                </Grid>
             )
         }
 
@@ -99,12 +104,17 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
                 {Array.from({ length: 8 }, (_value, lineIndex) => (
                 <tr className="line">
                     {Array.from({ length: 8 }, (_value, columnIndex) => (
-                    <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
-                        <div onClick = {() => doUserMove(lineIndex, columnIndex)}
-                        style={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
-                        <Piece line={lineIndex} column={columnIndex} />
-                        </div>
-                    </td>
+                        <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
+                            <Grid container direction="row" alignItems="center"
+                                onClick = {() => doUserMove(lineIndex, columnIndex)}
+                                style={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
+                                    <Grid container direction="column" alignItems="center">
+                                        <Grid item xs={12}>
+                                            <Piece line={lineIndex} column={columnIndex} />
+                                        </Grid>
+                                    </Grid>
+                            </Grid>
+                        </td>
                     ))}
                 </tr>
                 )).reverse()}

@@ -19,9 +19,9 @@ const boardBg = (line: number, column: number) => {
     return color /*+ backgroundImg*/;
 }
 
-export const flexAlignCenter = {display:"flex", alignItems: "center", justifyContent: "center"}
+export const hundredPercentDimensionsStyle = {width: "100%", height: "100%"}
 
-export const crownStyle = {"color": CROWN_COLOR, "fontSize": "2em"} 
+export const crownStyle = Object.assign({color: CROWN_COLOR, fontSize: "2em", width: "100%", height: "100%"}, hundredPercentDimensionsStyle)
 
 export const tableStyle = {
     margin: "0",
@@ -70,10 +70,8 @@ export const pieceWrapperStyle = (possibleMoves: PossibleMove[], line: number, c
 
     return Object.assign({
         cursor,
-        width: "100%",
-        height: "100%",
         backgroundColor: color
-    }, flexAlignCenter)
+    }, hundredPercentDimensionsStyle)
 }
   
 export const pieceStyle = (piece: Piece, isTurn: boolean) => {
@@ -81,7 +79,7 @@ export const pieceStyle = (piece: Piece, isTurn: boolean) => {
     const color = piece.type == PieceType.RED ?
         PLAYER_1_PIECE_COLOR : PLAYER_2_PIECE_COLOR
 
-    return Object.assign({
+    return {
         cursor: isTurn ? "pointer" : undefined,
         margin: "0",
         borderRadius: "4.5em",
@@ -89,5 +87,5 @@ export const pieceStyle = (piece: Piece, isTurn: boolean) => {
         backgroundColor: color,
         width: "4.5em",
         height: "4.5em"
-    }, flexAlignCenter)
+    }
 }
