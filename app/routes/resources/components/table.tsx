@@ -79,7 +79,11 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
         if(!piece) return null;
     
         if(piece.checker) {
-        icon = (<FontAwesomeIcon icon={faCrown} style={crownStyle}/>)
+            icon = (
+                <div style={crownStyle}>
+                    <FontAwesomeIcon icon={faCrown}/>
+                </div>
+            )
         }
 
         return (
