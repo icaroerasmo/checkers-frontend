@@ -7,6 +7,7 @@ import { useState } from "react";
 import { TableResponse, PossibleMove } from "./resources/models/types";
 import Table from "./resources/components/table";
 import { movesCoreTransformer } from "./resources/util/helpers";
+import Scoreboard from "./resources/components/scoreboard";
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
@@ -33,20 +34,11 @@ export default function Index() {
   })
 
   const state = useState(tableState);
-  const [data] = state;
 
   return (
     <div style={flexAlignCenter}>
       <div>
-        <div style={flexAlignCenter}>
-          <div style={{color: PLAYER_1_PIECE_COLOR}}>
-            <h1>Red {data.tableResponse.movesCore.redPieces.length}</h1>
-          </div>
-          <div style={{padding: "0 2em 0 2em"}}></div>
-          <div style={{color: PLAYER_2_PIECE_COLOR}}>
-            <h1>{data.tableResponse.movesCore.bluePieces.length} Blue</h1>
-          </div>
-        </div>
+        <Scoreboard state={state}/>
         <Table sessionId={sessionId} state={state} />
       </div>
     </div>
