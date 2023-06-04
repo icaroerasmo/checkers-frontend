@@ -30,8 +30,8 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
         }
         
         getPossibleMoves({sessionId, line, column}).
-        then(possibleMoves =>
-            setData({tableResponse, possibleMoves}))
+            then(possibleMoves =>
+                setData({tableResponse, possibleMoves}))
     }
 
     const doUserMove = (line: number, column: number) => {
@@ -43,8 +43,8 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
         })
 
         if(!foundMove) {
-        setData({tableResponse: data.tableResponse, possibleMoves: []})
-        return;
+            setData({tableResponse: data.tableResponse, possibleMoves: []})
+            return;
         }
 
         let firstMove = foundMove.movesLog[0];
@@ -71,8 +71,8 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
     const Piece = ({line, column}: {line: number, column: number}) => {
     
         let piece =
-        pieceFinder(redPieces, line, column) || 
-        pieceFinder(bluePieces, line, column);
+            pieceFinder(redPieces, line, column) || 
+            pieceFinder(bluePieces, line, column);
 
         let icon = null;
     
