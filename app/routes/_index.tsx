@@ -7,7 +7,6 @@ import Table from "./resources/components/table";
 import { movesCoreTransformer } from "./resources/util/helpers";
 import Scoreboard from "./resources/components/scoreboard";
 import { Grid } from "@mui/material";
-import { mainWrapperStyle } from "./resources/util/styles";
 import Settings from "./resources/components/settings";
 
 export const meta: V2_MetaFunction = () => {
@@ -37,13 +36,21 @@ export default function Index() {
   const state = useState(tableState);
 
   return (
-    <Grid container direction="row" alignItems="center" justifyContent="space-around" style={mainWrapperStyle}>
-      <Grid item sm={3} xs={12}>
-        <Scoreboard state={state}/>
-        <Settings sessionId={sessionId} state={state}/>
-      </Grid>
-      <Grid item sm={6} xs={12}>
+    <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"100vh"}}>
+      <Grid container direction="row" alignItems="center" justifyContent="space-between" style={{minWidth: "660px", maxWidth: "1300px"}}>
+        <Grid item lg={8} xs={12}>
           <Table sessionId={sessionId} state={state} />
+        </Grid>
+        <Grid item lg={4} xs={12}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Scoreboard state={state}/>
+            </Grid>
+            <Grid item xs={12}>
+              <Settings sessionId={sessionId} state={state}/>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );

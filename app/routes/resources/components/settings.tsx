@@ -46,18 +46,18 @@ export default function Settings({sessionId, state}: {sessionId: string, state:a
     }
 
     return (
-        <div>
-            <FormControl sx={{ m: 1 }} fullWidth>
-                <InputLabel id="difficultyLevel">Difficulty Level</InputLabel>
-                <Select id="difficultyLevel" labelId="difficultyLevel"
-                    label="Difficulty Level" value={settings.difficultyLevel}
-                    onChange={saveDiffLevel}>
-                    {difficultyOptions.map((op, index) => (
-                        <MenuItem value={op}> {nameExtractor(op)} </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1 }} fullWidth>
+        <Grid container direction="row" alignItems="center" justifyContent="center">
+            <FormControl sx={{ m: 1, minWidth: "300px" }} fullWidth>
+                        <InputLabel id="difficultyLevel">Difficulty Level</InputLabel>
+                        <Select id="difficultyLevel" labelId="difficultyLevel"
+                            label="Difficulty Level" value={settings.difficultyLevel}
+                            onChange={saveDiffLevel}>
+                            {difficultyOptions.map((op, index) => (
+                                <MenuItem value={op}> {nameExtractor(op)} </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+            <FormControl sx={{ m: 1, minWidth: "300px" }} fullWidth>
                 <InputLabel id="playerTurn">Player Turn</InputLabel>
                 <Select id="playerTurn" labelId="playerTurn"
                     label="Player Turn" value={settings.playerTurn}
@@ -67,11 +67,11 @@ export default function Settings({sessionId, state}: {sessionId: string, state:a
                     ))}
                 </Select>
             </FormControl>
-            <FormControl sx={{ m: 1 }} fullWidth>
+            <FormControl sx={{ m: 1, minWidth: "300px" }} fullWidth>
                 <Button onClick={() => sendSetting()} variant="contained" color="success">
                     New Game
                 </Button>
             </FormControl>
-        </div>
+        </Grid>
     )
 }

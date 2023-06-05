@@ -19,14 +19,12 @@ const boardBg = (line: number, column: number) => {
     return color /*+ backgroundImg*/;
 }
 
-export const mainWrapperStyle = {height:"100vh"}
-
 export const hundredPercentDimensionsStyle = {width: "100%", height: "100%"}
 
 export const crownStyle = Object.assign({color: CROWN_COLOR, fontSize: "2em", width: "100%", height: "100%"}, hundredPercentDimensionsStyle)
 
 export const tableStyle = {
-    minWidth: "800px",
+    width: "100%",
     margin: "0",
     padding: "0",
     border: "0.3em solid " + MAIN_BODER_COLOR
