@@ -8,6 +8,7 @@ import { movesCoreTransformer } from "./resources/util/helpers";
 import Scoreboard from "./resources/components/scoreboard";
 import { Grid } from "@mui/material";
 import { mainWrapperStyle } from "./resources/util/styles";
+import Settings from "./resources/components/settings";
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
@@ -37,12 +38,13 @@ export default function Index() {
 
   return (
     <Grid container direction="row" alignItems="center" justifyContent="space-around" style={mainWrapperStyle}>
-      <Grid item xs={3}>
-          <Scoreboard state={state}/>
-        </Grid>
-        <Grid item xs={6}>
+      <Grid item sm={3} xs={12}>
+        <Scoreboard state={state}/>
+        <Settings sessionId={sessionId} state={state}/>
+      </Grid>
+      <Grid item sm={6} xs={12}>
           <Table sessionId={sessionId} state={state} />
-        </Grid>
+      </Grid>
     </Grid>
   );
 }

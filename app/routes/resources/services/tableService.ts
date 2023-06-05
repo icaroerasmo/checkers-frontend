@@ -1,4 +1,4 @@
-import { GameSession, TableResponse, UserMove, AutomatedMove, PossibleMove, MovesCore, PieceType } from "../models/types";
+import { GameSession, TableResponse, UserMove, AutomatedMove, PossibleMove, MovesCore, PieceType, Settings } from "../models/types";
 
 const baseUrl = 'http://localhost:8080/api/v1';
 
@@ -44,6 +44,17 @@ export async function getPossibleMoves(automated: AutomatedMove): Promise<Possib
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(automated)
+    });
+
+
+    return await response.json();
+}
+
+export async function setSettings(settings: Settings): Promise<TableResponse> {
+    const response = await fetch(`${baseUrl}/settings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings)
     });
 
 

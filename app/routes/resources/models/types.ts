@@ -1,3 +1,10 @@
+export enum MinimaxDifficultyLevel {
+    EASY="EASY",
+    NORMAL="NORMAL",
+    HARD="HARD",
+    VERY_HARD="VERY_HARD"
+}
+
 export enum PieceType {
     RED = "RED",
     BLUE = "BLUE"
@@ -79,4 +86,9 @@ export type MovesLog = {
 export type PossibleMove = {
     captures: number
     movesLog: MovesLog[]
+}
+
+export type Settings = {
+    minimaxDifficultyLevel: MinimaxDifficultyLevel
+    playerTurn: PieceType
 }
