@@ -48,15 +48,15 @@ export default function Settings({sessionId, state}: {sessionId: string, state:a
     return (
         <Grid container direction="row" alignItems="center" justifyContent="center">
             <FormControl sx={{ m: 1, minWidth: "300px", maxWidth: "700px" }} fullWidth>
-                        <InputLabel id="difficultyLevel">Difficulty Level</InputLabel>
-                        <Select id="difficultyLevel" labelId="difficultyLevel"
-                            label="Difficulty Level" value={settings.difficultyLevel}
-                            onChange={saveDiffLevel}>
-                            {difficultyOptions.map((op, index) => (
-                                <MenuItem value={op}> {nameExtractor(op)} </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                <InputLabel id="difficultyLevel">Difficulty Level</InputLabel>
+                <Select id="difficultyLevel" labelId="difficultyLevel"
+                    label="Difficulty Level" value={settings.difficultyLevel}
+                    onChange={saveDiffLevel}>
+                    {difficultyOptions.map((op, index) => (
+                        <MenuItem value={op}> {nameExtractor(op)} </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
             <FormControl sx={{ m: 1, minWidth: "300px", maxWidth: "700px" }} fullWidth>
                 <InputLabel id="playerTurn">Player Turn</InputLabel>
                 <Select id="playerTurn" labelId="playerTurn"
