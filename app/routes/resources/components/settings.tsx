@@ -47,7 +47,7 @@ export default function Settings({sessionId, state}: {sessionId: string, state:a
 
     return (
         <Grid container direction="row" alignItems="center" justifyContent="center">
-            <FormControl sx={{ m: 1, minWidth: "300px" }} fullWidth>
+            <FormControl sx={{ m: 1, minWidth: "300px", maxWidth: "700px" }} fullWidth>
                         <InputLabel id="difficultyLevel">Difficulty Level</InputLabel>
                         <Select id="difficultyLevel" labelId="difficultyLevel"
                             label="Difficulty Level" value={settings.difficultyLevel}
@@ -57,7 +57,7 @@ export default function Settings({sessionId, state}: {sessionId: string, state:a
                             ))}
                         </Select>
                     </FormControl>
-            <FormControl sx={{ m: 1, minWidth: "300px" }} fullWidth>
+            <FormControl sx={{ m: 1, minWidth: "300px", maxWidth: "700px" }} fullWidth>
                 <InputLabel id="playerTurn">Player Turn</InputLabel>
                 <Select id="playerTurn" labelId="playerTurn"
                     label="Player Turn" value={settings.playerTurn}
@@ -67,7 +67,7 @@ export default function Settings({sessionId, state}: {sessionId: string, state:a
                     ))}
                 </Select>
             </FormControl>
-            <FormControl sx={{ m: 1, minWidth: "300px" }} fullWidth>
+            <FormControl sx={{ m: 1, minWidth: "300px", maxWidth: "700px" }} fullWidth>
                 <Button onClick={() => sendSetting()} variant="contained" color="success">
                     New Game
                 </Button>

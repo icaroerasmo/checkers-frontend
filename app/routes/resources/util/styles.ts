@@ -21,9 +21,10 @@ const boardBg = (line: number, column: number) => {
 
 export const hundredPercentDimensionsStyle = {width: "100%", height: "100%"}
 
-export const crownStyle = Object.assign({color: CROWN_COLOR, fontSize: "2em", width: "100%", height: "100%"}, hundredPercentDimensionsStyle)
+export const crownStyle = Object.assign({color: CROWN_COLOR, fontSize: "1.3em", width: "100%", height: "100%"}, hundredPercentDimensionsStyle)
 
 export const tableStyle = {
+    maxWidth: "700px",
     width: "100%",
     margin: "0",
     padding: "0",
@@ -31,8 +32,8 @@ export const tableStyle = {
 }
   
 export const lineStyle = (line:number, column:number) => ({
-    width: "6em",
-    height: "6em",
+    width: "10vh",
+    height: "10vh",
     margin: "0",
     padding: "0",
     background: boardBg(line, column),
@@ -86,7 +87,7 @@ export const pieceStyle = (piece: Piece, isTurn: boolean) => {
         borderRadius: "4.5em",
         border: "0.1em solid " + PIECE_BORDER_COLOR,
         backgroundColor: color,
-        width: "4.5em",
-        height: "4.5em"
+        width: "6vh",
+        height: "6vh"
     }
 }

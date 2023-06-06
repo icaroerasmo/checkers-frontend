@@ -37,7 +37,7 @@ export default function Index() {
 
   return (
     <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"100vh"}}>
-      <Grid container direction="row" alignItems="center" justifyContent="space-between" style={{minWidth: "660px", maxWidth: "1300px"}}>
+      <Grid container direction="row" alignItems="center" justifyContent="space-between" sx={{minWidth: "500px", maxWidth: "1300px"}}>
         <Grid item lg={8} xs={12}>
           <Table sessionId={sessionId} state={state} />
         </Grid>

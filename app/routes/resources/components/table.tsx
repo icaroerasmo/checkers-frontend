@@ -99,28 +99,29 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
     }
 
     return (
-        
-        <table style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
-            <tbody>
-                {Array.from({ length: 8 }, (_value, lineIndex) => (
-                <tr>
-                    {Array.from({ length: 8 }, (_value, columnIndex) => (
-                        <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
-                            <div onClick = {() => doUserMove(lineIndex, columnIndex)}
-                                style={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
-                                <Grid style={{height:"100%"}} container direction="row" alignItems="center" justifyContent="center">
-                                    <Grid container direction="column" alignItems="center" justifyContent="center">
-                                        <Grid item xs={12}>
-                                            <Piece line={lineIndex} column={columnIndex} />
+        <Grid container direction="row" alignItems="center" justifyContent="center">
+            <table style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
+                <tbody>
+                    {Array.from({ length: 8 }, (_value, lineIndex) => (
+                    <tr>
+                        {Array.from({ length: 8 }, (_value, columnIndex) => (
+                            <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
+                                <Grid container onClick = {() => doUserMove(lineIndex, columnIndex)}
+                                    sx={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
+                                    <Grid container sx={{height:"100%"}} direction="row" alignItems="center" justifyContent="center">
+                                        <Grid container direction="column" alignItems="center" justifyContent="center">
+                                            <Grid item xs={12}>
+                                                <Piece line={lineIndex} column={columnIndex} />
+                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                            </div>
-                        </td>
-                    ))}
-                </tr>
-                )).reverse()}
-            </tbody>
-        </table>
+                            </td>
+                        ))}
+                    </tr>
+                    )).reverse()}
+                </tbody>
+            </table>
+        </Grid>
     )
 }
