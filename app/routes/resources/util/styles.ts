@@ -83,7 +83,6 @@ export const pieceStyle = (piece: Piece, isTurn: boolean) => {
 
     return {
         cursor: isTurn ? "pointer" : undefined,
-        margin: "0",
         borderRadius: "4.5em",
         border: "0.1em solid " + PIECE_BORDER_COLOR,
         backgroundColor: color,
