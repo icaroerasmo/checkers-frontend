@@ -6,7 +6,6 @@ import {
     PLAYER_2_PIECE_COLOR,
     POSSIBLE_MOVE_COLOR,
     BLACK_TILE_COLOR,
-    PIECE_BORDER_COLOR,
     MAIN_BODER_COLOR,
     CROWN_COLOR
 } from "../constants/colors";
@@ -84,7 +83,7 @@ export const pieceStyle = (piece: Piece, isTurn: boolean) => {
     return {
         cursor: isTurn ? "pointer" : undefined,
         borderRadius: "4.5em",
-        // border: "0.1em solid " + PIECE_BORDER_COLOR,
+        // border: "0.1em solid " + MAIN_BODER_COLOR,
         backgroundColor: color,
         width: "6vh",
         height: "6vh"

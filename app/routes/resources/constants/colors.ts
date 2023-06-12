@@ -5,6 +5,5 @@ export const POSSIBLE_MOVE_COLOR = 'rgba(240, 230, 140, 0.6)'
 export const PIECE_CAPTURE_COLOR = 'rgba(208, 52, 44, 0.5)'
 export const PLAYER_1_PIECE_COLOR = 'rgb(255,40,40)'
 export const PLAYER_2_PIECE_COLOR = 'rgb(30,144,255)'
-export const PIECE_BORDER_COLOR = "#a0a0a0"
 export const MAIN_BODER_COLOR = "black"
 export const CROWN_COLOR = "#acbd2e"
