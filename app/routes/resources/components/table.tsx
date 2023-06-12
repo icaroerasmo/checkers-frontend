@@ -99,7 +99,7 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
         <Grid container direction="row" alignItems="center" justifyContent="center"
             style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
             {Array.from({ length: 8 }, (_value, lineIndex) => (
-                <Grid container direction="row" alignItems="center" justifyContent="space-around">
+                <Grid container direction="row" alignItems="center" justifyContent="center">
                     {Array.from({ length: 8 }, (_value, columnIndex) => (
                         <Grid container item xs={1.5} direction="row" alignItems="center"
                                 justifyContent="center" style={lineStyle(lineIndex, columnIndex)}>

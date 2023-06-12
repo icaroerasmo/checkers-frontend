@@ -38,14 +38,14 @@ export default function Index() {
   return (
     <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"100vh"}}>
       <Grid container direction="row" alignItems="center" justifyContent="space-between" sx={{minWidth: "500px", maxWidth: "1300px"}}>
-        <Grid container direction="row" alignItems="center" justifyContent="center" item lg={8} xs={12}>
+        <Grid container sx={{textAlign: "center"}}>
+          <Scoreboard state={state}/>
+        </Grid>
+        <Grid container direction="row" alignItems="center" justifyContent="center" lg={8} xs={12}>
           <Table sessionId={sessionId} state={state} />
         </Grid>
         <Grid item lg={4} xs={12}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Scoreboard state={state}/>
-            </Grid>
+          <Grid direction="row" alignItems="center" justifyContent="center" container>
             <Grid item xs={12}>
               <Settings sessionId={sessionId} state={state}/>
             </Grid>
