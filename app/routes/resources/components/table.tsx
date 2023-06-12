@@ -97,12 +97,12 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
 
     return (
         <Grid container direction="row" alignItems="center" justifyContent="center"
-            style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
+            sx={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
             {Array.from({ length: 8 }, (_value, lineIndex) => (
                 <Grid container direction="row" alignItems="center" justifyContent="center">
                     {Array.from({ length: 8 }, (_value, columnIndex) => (
                         <Grid container item xs={1.5} direction="row" alignItems="center"
-                                justifyContent="center" style={lineStyle(lineIndex, columnIndex)}>
+                                justifyContent="center" sx={lineStyle(lineIndex, columnIndex)}>
                             <Grid container onClick = {() => doUserMove(lineIndex, columnIndex)}
                                     sx={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
                                 <Grid container item direction="row" alignItems="center" justifyContent="center">
