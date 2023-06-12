@@ -21,7 +21,7 @@ const boardBg = (line: number, column: number) => {
 
 export const hundredPercentDimensionsStyle = {width: "100%", height: "100%"}
 
-export const crownStyle = Object.assign({color: CROWN_COLOR, fontSize: "1.3em", width: "100%", height: "100%"}, hundredPercentDimensionsStyle)
+export const crownStyle = Object.assign({color: CROWN_COLOR, fontSize: "1.3em"}, hundredPercentDimensionsStyle)
 
 export const tableStyle = {
     minWidht: "300px",
@@ -37,7 +37,7 @@ export const lineStyle = (line:number, column:number) => ({
     margin: "0",
     padding: "0",
     background: boardBg(line, column),
-    border: "0.15em solid " + MAIN_BODER_COLOR
+    border: "0.1em solid " + MAIN_BODER_COLOR
 })
   
 export const pieceWrapperStyle = (possibleMoves: PossibleMove[], line: number, column: number) => {

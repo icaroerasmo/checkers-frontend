@@ -81,12 +81,9 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
     
         if(piece.checker) {
             icon = (
-                <Grid container direction="row" alignItems="center" justifyContent="center" style={crownStyle}>
-                    <Grid container direction="column" alignItems="center">
-                        <Grid item xs={12}>
-                            <FontAwesomeIcon icon={faCrown}/>
-                        </Grid>
-                    </Grid>
+                <Grid container item style={crownStyle} direction="row" 
+                        alignItems="center" justifyContent="center">
+                    <FontAwesomeIcon icon={faCrown}/>
                 </Grid>
             )
         }
@@ -102,18 +99,14 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
         <Grid container direction="row" alignItems="center" justifyContent="center"
             style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
             {Array.from({ length: 8 }, (_value, lineIndex) => (
-                <Grid container direction="row" alignItems="center" justifyContent="center">
+                <Grid container direction="row" alignItems="center" justifyContent="space-around">
                     {Array.from({ length: 8 }, (_value, columnIndex) => (
                         <Grid container item xs={1.5} direction="row" alignItems="center"
                                 justifyContent="center" style={lineStyle(lineIndex, columnIndex)}>
                             <Grid container onClick = {() => doUserMove(lineIndex, columnIndex)}
                                     sx={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
-                                <Grid container direction="row" alignItems="center" justifyContent="center">
-                                    <Grid container direction="column" alignItems="center" justifyContent="center">
-                                        <Grid item xs={12}>
-                                            <Piece line={lineIndex} column={columnIndex} />
-                                        </Grid>
-                                    </Grid>
+                                <Grid container item direction="row" alignItems="center" justifyContent="center">
+                                    <Piece line={lineIndex} column={columnIndex} />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -122,31 +115,4 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
             )).reverse()}
         </Grid>
     )
-
-    // return (
-    //     <Grid container direction="row" alignItems="center" justifyContent="center">
-    //         <table style={tableStyle} onClick = {() => setData({tableResponse: data.tableResponse, possibleMoves: []})}>
-    //             <tbody>
-    //                 {Array.from({ length: 8 }, (_value, lineIndex) => (
-    //                 <tr>
-    //                     {Array.from({ length: 8 }, (_value, columnIndex) => (
-    //                         <td key={""+(lineIndex+columnIndex)} style={lineStyle(lineIndex, columnIndex)}>
-    //                             <Grid container onClick = {() => doUserMove(lineIndex, columnIndex)}
-    //                                 sx={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>
-    //                                 <Grid container sx={{height:"100%"}} direction="row" alignItems="center" justifyContent="center">
-    //                                     <Grid container direction="column" alignItems="center" justifyContent="center">
-    //                                         <Grid item xs={12}>
-    //                                             <Piece line={lineIndex} column={columnIndex} />
-    //                                         </Grid>
-    //                                     </Grid>
-    //                                 </Grid>
-    //                             </Grid>
-    //                         </td>
-    //                     ))}
-    //                 </tr>
-    //                 )).reverse()}
-    //             </tbody>
-    //         </table>
-    //     </Grid>
-    // )
 }
