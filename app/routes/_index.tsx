@@ -36,8 +36,8 @@ export default function Index() {
   const state = useState(tableState);
 
   return (
-    <Grid container spacing={3} direction="row" alignItems="center" justifyContent="center" style={{height:"100vh"}}>
-      <Grid container direction="row" alignItems="center" justifyContent="space-between" sx={{minWidth: "500px", maxWidth: "1300px"}}>
+    <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"100vh"}}>
+      <Grid container direction="row" alignItems="center" justifyContent="space-between" sx={{minWidth: "300px", maxWidth: "1300px"}}>
         <Grid container sx={{textAlign: "center"}}>
           <Scoreboard state={state}/>
         </Grid>

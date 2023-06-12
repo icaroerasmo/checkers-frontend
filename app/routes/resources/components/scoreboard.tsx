@@ -4,7 +4,7 @@ import { PLAYER_1_PIECE_COLOR, PLAYER_2_PIECE_COLOR } from "../constants/colors"
 export default function Scoreboard({state}: {state: any}) {
     const [data] = state
     return (
-      <Grid container item spacing={3} xs={12} direction="row" alignItems="center" justifyContent="center" sx={{maxWidth: "700px"}}>
+      <Grid container item xs={12} direction="row" alignItems="center" justifyContent="center" sx={{maxWidth: "700px"}}>
         <Grid item xs={6}>
           <div>
             <Typography sx={{color: PLAYER_1_PIECE_COLOR}} variant="h1" component="h2">
