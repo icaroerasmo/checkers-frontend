@@ -8,12 +8,13 @@ import { movesCoreTransformer } from "./resources/util/helpers";
 import Scoreboard from "./resources/components/scoreboard";
 import { Box, Grid } from "@mui/material";
 import Settings from "./resources/components/settings";
+import {v4 as uuid} from 'uuid';
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
 };
 
-const sessionId = '123'
+const sessionId = uuid()
 
 export async function loader() {
   
@@ -28,7 +29,8 @@ export async function loader() {
 
 export default function Index() {
 
-  let tableState = () : {tableResponse: TableResponse, possibleMoves: PossibleMove[]} => ({
+  let tableState = () : {sessionId: string, tableResponse: TableResponse, possibleMoves: PossibleMove[]} => ({
+    sessionId,
     tableResponse: useLoaderData(),
     possibleMoves: []
   })
@@ -42,11 +44,11 @@ export default function Index() {
           <Scoreboard state={state}/>
         </Grid>
         <Grid container lg={7} xs={12} direction="row" alignItems="center" justifyContent="center">
-          <Table sessionId={sessionId} state={state} />
+          <Table state={state} />
         </Grid>
         <Box sx={{ p: 2 }}/>
         <Grid container lg={3} xs={12} direction="row" alignItems="center" justifyContent="flex-end">
-          <Settings sessionId={sessionId} state={state}/>
+          <Settings state={state}/>
         </Grid>
       </Grid>
     </Grid>

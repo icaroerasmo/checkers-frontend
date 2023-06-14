@@ -6,7 +6,7 @@ import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { movesCoreTransformer } from "../util/helpers";
 import { Grid } from "@mui/material";
 
-export default function Table ({sessionId, state}: {sessionId: string, state: any}) {
+export default function Table ({state}: {state: any}) {
 
     const [data, setData] = state
 
@@ -30,7 +30,7 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
             return;
         }
         
-        getPossibleMoves({sessionId, line, column}).
+        getPossibleMoves({sessionId: state.sessionId, line, column}).
             then(possibleMoves =>
                 setData({tableResponse, possibleMoves}))
     }
@@ -51,17 +51,17 @@ export default function Table ({sessionId, state}: {sessionId: string, state: an
         let firstMove = foundMove.movesLog[0];
 
         let userMoveObj = {
-        sessionId,
-        line: firstMove.from[0],
-        column: firstMove.from[1],
-        directions:foundMove.movesLog.map((ml: MovesLog) => ml.direction)
+            sessionId: state.sessionId,
+            line: firstMove.from[0],
+            column: firstMove.from[1],
+            directions:foundMove.movesLog.map((ml: MovesLog) => ml.direction)
         }
 
         userMove(userMoveObj).then((response) => {
             response.movesCore = movesCoreTransformer(response.movesCore)
             setData({tableResponse: response, possibleMoves: []})
             if(response.movesCore.redPieces.length && response.movesCore.bluePieces.length) {
-                minimaxMove({sessionId}).then(response => {
+                minimaxMove({sessionId: state.sessionId}).then(response => {
                   response.movesCore = movesCoreTransformer(response.movesCore)
                   setData({tableResponse: response, possibleMoves: []})
                 })

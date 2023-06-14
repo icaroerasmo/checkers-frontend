@@ -4,7 +4,7 @@ import { useState } from "react";
 import { setSettings } from "../services/tableService";
 import { movesCoreTransformer } from "../util/helpers";
 
-export default function Settings({sessionId, state}: {sessionId: string, state:any}) {
+export default function Settings({state}: {state:any}) {
 
     const [data, setData] = state;
 
@@ -39,7 +39,7 @@ export default function Settings({sessionId, state}: {sessionId: string, state:a
     };
 
     const sendSetting = () => {
-        setSettings(Object.assign(settings, {sessionId})).then((response) => {
+        setSettings(Object.assign(settings, {sessionId: state.sessionId})).then((response) => {
             response.movesCore = movesCoreTransformer(response.movesCore)
             setData({tableResponse: response, possibleMoves: []})
         })
