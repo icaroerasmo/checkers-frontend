@@ -46,32 +46,38 @@ export default function Settings({sessionId, state}: {sessionId: string, state:a
     }
 
     return (
-        <Grid container direction="row" alignItems="center" justifyContent="center">
-            <FormControl sx={{ m: 1, minWidth: "300px", maxWidth: "700px" }} fullWidth>
-                <InputLabel id="difficultyLevel">Difficulty Level</InputLabel>
-                <Select id="difficultyLevel" labelId="difficultyLevel"
-                    label="Difficulty Level" value={settings.difficultyLevel}
-                    onChange={saveDiffLevel}>
-                    {difficultyOptions.map((op, index) => (
-                        <MenuItem value={op}> {nameExtractor(op)} </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1, minWidth: "300px", maxWidth: "700px" }} fullWidth>
-                <InputLabel id="playerTurn">Player Turn</InputLabel>
-                <Select id="playerTurn" labelId="playerTurn"
-                    label="Player Turn" value={settings.playerTurn}
-                    onChange={savePlayerTurn}>
-                    {playerOptions.map((op, index) => (
-                        <MenuItem value={op}> {nameExtractor(op)} </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1, minWidth: "300px", maxWidth: "700px" }} fullWidth>
-                <Button onClick={() => sendSetting()} variant="contained" color="success">
-                    New Game
-                </Button>
-            </FormControl>
+        <Grid container spacing={2} direction="row" alignItems="center" justifyContent="center">
+            <Grid item lg={6} xs={12}>
+                <FormControl fullWidth>
+                    <InputLabel id="difficultyLevel">Difficulty Level</InputLabel>
+                    <Select id="difficultyLevel" labelId="difficultyLevel"
+                        label="Difficulty Level" value={settings.difficultyLevel}
+                        onChange={saveDiffLevel}>
+                        {difficultyOptions.map((op, index) => (
+                            <MenuItem value={op}> {nameExtractor(op)} </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Grid>
+            <Grid item lg={6} xs={12}>
+                <FormControl fullWidth>
+                    <InputLabel id="playerTurn">Player Turn</InputLabel>
+                    <Select id="playerTurn" labelId="playerTurn"
+                        label="Player Turn" value={settings.playerTurn}
+                        onChange={savePlayerTurn}>
+                        {playerOptions.map((op, index) => (
+                            <MenuItem value={op}> {nameExtractor(op)} </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+                <FormControl fullWidth>
+                    <Button onClick={() => sendSetting()} variant="contained" color="success">
+                        New Game
+                    </Button>
+                </FormControl>
+            </Grid>
         </Grid>
     )
 }

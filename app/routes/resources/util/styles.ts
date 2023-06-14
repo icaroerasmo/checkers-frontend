@@ -23,8 +23,6 @@ export const hundredPercentDimensionsStyle = {width: "100%", height: "100%"}
 export const crownStyle = Object.assign({color: CROWN_COLOR, fontSize: "1.3em"}, hundredPercentDimensionsStyle)
 
 export const tableStyle = {
-    minWidht: "300px",
-    maxWidth: "700px",
     margin: "0",
     padding: "0",
     border: "0.3em solid " + MAIN_BODER_COLOR

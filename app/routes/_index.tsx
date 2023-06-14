@@ -6,7 +6,7 @@ import { TableResponse, PossibleMove } from "./resources/models/types";
 import Table from "./resources/components/table";
 import { movesCoreTransformer } from "./resources/util/helpers";
 import Scoreboard from "./resources/components/scoreboard";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Settings from "./resources/components/settings";
 
 export const meta: V2_MetaFunction = () => {
@@ -37,19 +37,16 @@ export default function Index() {
 
   return (
     <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"100vh"}}>
-      <Grid container direction="row" alignItems="center" justifyContent="space-between" sx={{minWidth: "300px", maxWidth: "1300px"}}>
-        <Grid container sx={{textAlign: "center"}}>
+      <Grid container direction="row" alignItems="center" justifyContent="center" sx={{minWidth: "300px", maxWidth: "1300px"}}>
+        <Grid container sx={{textAlign: "center"}} xs={12}>
           <Scoreboard state={state}/>
         </Grid>
-        <Grid container direction="row" alignItems="center" justifyContent="center" lg={8} xs={12}>
+        <Grid container lg={7} xs={12} direction="row" alignItems="center" justifyContent="center">
           <Table sessionId={sessionId} state={state} />
         </Grid>
-        <Grid item lg={4} xs={12}>
-          <Grid direction="row" alignItems="center" justifyContent="center" container>
-            <Grid item xs={12}>
-              <Settings sessionId={sessionId} state={state}/>
-            </Grid>
-          </Grid>
+        <Box sx={{ p: 2 }}/>
+        <Grid container lg={3} xs={12} direction="row" alignItems="center" justifyContent="flex-end">
+          <Settings sessionId={sessionId} state={state}/>
         </Grid>
       </Grid>
     </Grid>
