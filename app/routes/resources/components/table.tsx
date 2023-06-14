@@ -16,9 +16,11 @@ export default function Table ({state}: {state: any}) {
     
     const isTurn = (piece: Piece | undefined, playerTurn: PieceType) => !!piece && piece.type === playerTurn
 
-    const {tableResponse, possibleMoves} = data;
+    const {sessionId, tableResponse, possibleMoves} = data;
     const movesCore: MovesCore = tableResponse.movesCore;
     const {bluePieces, redPieces, playerTurn}: MovesCore = movesCore;
+
+    const cleanData = {sessionId, tableResponse: data.tableResponse, possibleMoves: []};
     
     const loadPossibleMoves = (line: number, column: number) => {
 
@@ -30,9 +32,9 @@ export default function Table ({state}: {state: any}) {
             return;
         }
         
-        getPossibleMoves({sessionId: state.sessionId, line, column}).
+        getPossibleMoves({sessionId, line, column}).
             then(possibleMoves =>
-                setData({tableResponse, possibleMoves}))
+                setData({sessionId, tableResponse, possibleMoves}))
     }
 
     const doUserMove = (line: number, column: number) => {
@@ -44,14 +46,14 @@ export default function Table ({state}: {state: any}) {
         })
 
         if(!foundMove) {
-            setData({tableResponse: data.tableResponse, possibleMoves: []})
+            setData(cleanData)
             return;
         }
 
         let firstMove = foundMove.movesLog[0];
 
         let userMoveObj = {
-            sessionId: state.sessionId,
+            sessionId,
             line: firstMove.from[0],
             column: firstMove.from[1],
             directions:foundMove.movesLog.map((ml: MovesLog) => ml.direction)
@@ -59,11 +61,11 @@ export default function Table ({state}: {state: any}) {
 
         userMove(userMoveObj).then((response) => {
             response.movesCore = movesCoreTransformer(response.movesCore)
-            setData({tableResponse: response, possibleMoves: []})
+            setData({sessionId, tableResponse: response, possibleMoves: []})
             if(response.movesCore.redPieces.length && response.movesCore.bluePieces.length) {
-                minimaxMove({sessionId: state.sessionId}).then(response => {
+                minimaxMove({sessionId}).then(response => {
                   response.movesCore = movesCoreTransformer(response.movesCore)
-                  setData({tableResponse: response, possibleMoves: []})
+                  setData({sessionId, tableResponse: response, possibleMoves: []})
                 })
             }
         })
@@ -107,11 +109,9 @@ export default function Table ({state}: {state: any}) {
         </Grid>
     )
 
-    const cleanPossibleMoves = {tableResponse: data.tableResponse, possibleMoves: []};
-
     return (
         <Grid container direction="row" alignItems="center" justifyContent="center"
-            sx={tableStyle} onClick = {() => setData(cleanPossibleMoves)}>
+            sx={tableStyle} onClick = {() => setData(cleanData)}>
             {Array.from({ length: 8 }, (_value, lineIndex) => (
                 Array.from({ length: 8 }, (_value, columnIndex) => (
                     tableRenderer(lineIndex, columnIndex)
