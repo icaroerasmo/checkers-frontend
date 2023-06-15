@@ -109,14 +109,30 @@ export default function Table ({state}: {state: any}) {
         </Grid>
     )
 
-    return (
-        <Grid container direction="row" alignItems="center" justifyContent="center"
-            sx={tableStyle} onClick = {() => setData(cleanData)}>
-            {Array.from({ length: 8 }, (_value, lineIndex) => (
+    let tableRendering;
+    
+    if(data.player === PieceType.RED) {
+        tableRendering = (
+            Array.from({ length: 8 }, (_value, lineIndex) => (
                 Array.from({ length: 8 }, (_value, columnIndex) => (
                     tableRenderer(lineIndex, columnIndex)
                 ))
-            )).reverse()}
+            )).reverse()
+        )
+    } else {
+        tableRendering = (
+            Array.from({ length: 8 }, (_value, lineIndex) => (
+                Array.from({ length: 8 }, (_value, columnIndex) => (
+                    tableRenderer(lineIndex, columnIndex)
+                ))
+            ))
+        )
+    }
+
+    return (
+        <Grid container direction="row" alignItems="center" justifyContent="center"
+            sx={tableStyle} onClick = {() => setData(cleanData)}>
+            {tableRendering}
         </Grid>
     )
 }

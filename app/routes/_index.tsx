@@ -29,8 +29,9 @@ export async function loader() {
 
 export default function Index() {
 
-  let tableState = () : {sessionId: string, tableResponse: TableResponse, possibleMoves: PossibleMove[]} => ({
+  let tableState = () : {sessionId: string, player: PieceType, tableResponse: TableResponse, possibleMoves: PossibleMove[]} => ({
     sessionId,
+    player: PieceType.RED,
     tableResponse: useLoaderData(),
     possibleMoves: []
   })
