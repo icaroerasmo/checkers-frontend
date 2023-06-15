@@ -2,6 +2,16 @@ import { GameSession, TableResponse, UserMove, AutomatedMove, PossibleMove, Move
 
 const baseUrl = 'http://localhost:8080/api/v1';
 
+const cleanTable: TableResponse = {
+    "movesCore":{
+      "playerTurn":PieceType.RED,
+      "redPieces":[],
+      "bluePieces":[]
+    },
+    "movesLog":[],
+    "captures":0
+  }
+
 
 export async function userMove (userMove: UserMove): Promise<TableResponse> {
 
@@ -29,14 +39,19 @@ export async function minimaxMove (gameSession: GameSession): Promise<TableRespo
 
 export async function currentState (gameSession: GameSession): Promise<TableResponse> {
 
-    const response = await fetch(`${baseUrl}/current-state`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(gameSession)
-    });
+    try {
 
+        const response = await fetch(`${baseUrl}/current-state`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(gameSession)
+        });
 
-    return await response.json();
+        return await response.json();
+
+    } catch(e) {
+        return cleanTable;
+    }
 }
 
 export async function getPossibleMoves(automated: AutomatedMove): Promise<PossibleMove[]> {

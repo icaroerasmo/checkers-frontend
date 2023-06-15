@@ -16,25 +16,9 @@ export const meta: V2_MetaFunction = () => {
 
 const sessionId = uuid()
 
-const cleanTable: TableResponse = {
-  "movesCore":{
-    "playerTurn":PieceType.RED,
-    "redPieces":[],
-    "bluePieces":[]
-  },
-  "movesLog":[],
-  "captures":0
-}
-
 export async function loader() {
   
-  let data;
-
-  try {
-    data = await currentState({sessionId})
-  } catch(e) {
-    data = cleanTable
-  }
+  let data = await currentState({sessionId})
 
   if(data.movesCore) {
     data.movesCore = movesCoreTransformer(data.movesCore);
