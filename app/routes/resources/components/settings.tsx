@@ -9,7 +9,7 @@ export default function Settings({state}: {state:any}) {
     const [data, setData] = state;
 
     let settingObj: any = {
-        playerTurn: "",
+        player: "",
         difficultyLevel: ""
     }
 
@@ -35,7 +35,7 @@ export default function Settings({state}: {state:any}) {
     };
 
     const savePlayerTurn = (event: SelectChangeEvent) => {
-        setSetting({...settings, playerTurn: event.target.value});
+        setSetting({...settings, player: event.target.value});
     };
 
     const sendSetting = () => {
@@ -49,7 +49,7 @@ export default function Settings({state}: {state:any}) {
         <Grid container spacing={2} direction="row" alignItems="center" justifyContent="center">
             <Grid item lg={6} xs={12}>
                 <FormControl fullWidth>
-                    <InputLabel id="difficultyLevel">Difficulty Level</InputLabel>
+                    <InputLabel id="difficultyLevel">Difficulty</InputLabel>
                     <Select id="difficultyLevel" labelId="difficultyLevel"
                         label="Difficulty Level" value={settings.difficultyLevel}
                         onChange={saveDiffLevel}>
@@ -61,9 +61,9 @@ export default function Settings({state}: {state:any}) {
             </Grid>
             <Grid item lg={6} xs={12}>
                 <FormControl fullWidth>
-                    <InputLabel id="playerTurn">Player Turn</InputLabel>
-                    <Select id="playerTurn" labelId="playerTurn"
-                        label="Player Turn" value={settings.playerTurn}
+                    <InputLabel id="player">Player</InputLabel>
+                    <Select id="player" labelId="player"
+                        label="Player" value={settings.player}
                         onChange={savePlayerTurn}>
                         {playerOptions.map((op, index) => (
                             <MenuItem value={op}> {nameExtractor(op)} </MenuItem>

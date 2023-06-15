@@ -43,11 +43,11 @@ export default function Index() {
         <Grid container sx={{textAlign: "center"}} xs={12}>
           <Scoreboard state={state}/>
         </Grid>
-        <Grid container lg={7} xs={12} direction="row" alignItems="center" justifyContent="center">
+        <Grid container lg={7} md={7} xs={12} direction="row" alignItems="center" justifyContent="center">
           <Table state={state} />
         </Grid>
         <Box sx={{ p: 2 }}/>
-        <Grid container lg={3} xs={12} direction="row" alignItems="center" justifyContent="flex-end">
+        <Grid container lg={3} md={3} xs={12} direction="row" alignItems="center" justifyContent="flex-end">
           <Settings state={state}/>
         </Grid>
       </Grid>
