@@ -2,7 +2,7 @@ import { V2_MetaFunction } from "@remix-run/node";
 import { currentState } from "./resources/services/tableService";
 import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
-import { TableResponse, PossibleMove } from "./resources/models/types";
+import { TableResponse, PossibleMove, PieceType } from "./resources/models/types";
 import Table from "./resources/components/table";
 import { movesCoreTransformer } from "./resources/util/helpers";
 import Scoreboard from "./resources/components/scoreboard";
@@ -16,9 +16,25 @@ export const meta: V2_MetaFunction = () => {
 
 const sessionId = uuid()
 
+const cleanTable: TableResponse = {
+  "movesCore":{
+    "playerTurn":PieceType.RED,
+    "redPieces":[],
+    "bluePieces":[]
+  },
+  "movesLog":[],
+  "captures":0
+}
+
 export async function loader() {
   
-  let data = await currentState({sessionId})
+  let data;
+
+  try {
+    data = await currentState({sessionId})
+  } catch(e) {
+    data = cleanTable
+  }
 
   if(data.movesCore) {
     data.movesCore = movesCoreTransformer(data.movesCore);
