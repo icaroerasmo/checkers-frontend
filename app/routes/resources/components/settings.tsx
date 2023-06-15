@@ -9,6 +9,7 @@ export default function Settings({state}: {state:any}) {
     const [data, setData] = state;
 
     let settingObj: any = {
+        sessionId: "",
         player: "",
         difficultyLevel: ""
     }
@@ -39,9 +40,9 @@ export default function Settings({state}: {state:any}) {
     };
 
     const sendSetting = () => {
-        setSettings(Object.assign(settings, {sessionId: state.sessionId})).then((response) => {
+        setSettings({...settings, sessionId: data.sessionId}).then((response) => {
             response.movesCore = movesCoreTransformer(response.movesCore)
-            setData({tableResponse: response, possibleMoves: []})
+            setData({sessionId: data.sessionId, tableResponse: response, possibleMoves: []})
         })
     }
 
