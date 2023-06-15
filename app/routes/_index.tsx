@@ -40,7 +40,7 @@ export default function Index() {
   return (
     <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"100%"}}>
       <Grid container direction="row" alignItems="center" justifyContent="center" sx={{minWidth: "300px", maxWidth: "1300px"}}>
-        <Grid container sx={{textAlign: "center"}} xs={12}>
+        <Grid container xs={12}>
           <Scoreboard state={state}/>
         </Grid>
         <Grid container lg={7} md={7} xs={12} direction="row" alignItems="center" justifyContent="center">
