@@ -1,6 +1,6 @@
 import { crownStyle, lineStyle, pieceStyle, pieceWrapperStyle, tableStyle } from "../util/styles";
 import { getPossibleMoves, minimaxMove, userMove, } from "../services/tableService";
-import { MovesCore, Piece, PieceType, PossibleMove, MovesLog } from "../models/types";
+import { MovesCore, Piece, PieceType, PossibleMove, MovesLog, TableResponse } from "../models/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { movesCoreTransformer } from "../util/helpers";
@@ -16,25 +16,22 @@ export default function Table ({state}: {state: any}) {
     
     const isTurn = (piece: Piece | undefined, playerTurn: PieceType) => !!piece && piece.type === playerTurn
 
-    const {sessionId, tableResponse, possibleMoves} = data;
+    const {sessionId, player, tableResponse, possibleMoves} = data;
     const movesCore: MovesCore = tableResponse.movesCore;
     const {bluePieces, redPieces, playerTurn}: MovesCore = movesCore;
-
-    const cleanData = {sessionId, tableResponse: data.tableResponse, possibleMoves: []};
     
     const loadPossibleMoves = (line: number, column: number) => {
 
         const piece: Piece | undefined =
-        pieceFinder(bluePieces, line, column) ||
-        pieceFinder(redPieces, line, column)
+            pieceFinder(bluePieces, line, column) ||
+            pieceFinder(redPieces, line, column)
 
         if(!isTurn(piece, playerTurn)) {
             return;
         }
         
         getPossibleMoves({sessionId, line, column}).
-            then(possibleMoves =>
-                setData({sessionId, tableResponse, possibleMoves}))
+            then(possibleMoves => setData({...data, possibleMoves}))
     }
 
     const doUserMove = (line: number, column: number) => {
@@ -46,7 +43,7 @@ export default function Table ({state}: {state: any}) {
         })
 
         if(!foundMove) {
-            setData(cleanData)
+            setData({...data, possibleMoves: []})
             return;
         }
 
@@ -61,11 +58,11 @@ export default function Table ({state}: {state: any}) {
 
         userMove(userMoveObj).then((response) => {
             response.movesCore = movesCoreTransformer(response.movesCore)
-            setData({sessionId, tableResponse: response, possibleMoves: []})
+            setData({...data, tableResponse: response, possibleMoves: []})
             if(response.movesCore.redPieces.length && response.movesCore.bluePieces.length) {
                 minimaxMove({sessionId}).then(response => {
                   response.movesCore = movesCoreTransformer(response.movesCore)
-                  setData({sessionId, tableResponse: response, possibleMoves: []})
+                  setData({...data, tableResponse: response, possibleMoves: []})
                 })
             }
         })
@@ -111,7 +108,7 @@ export default function Table ({state}: {state: any}) {
 
     let tableRendering;
     
-    if(data.player === PieceType.RED) {
+    if(player === PieceType.RED) {
         tableRendering = (
             Array.from({ length: 8 }, (_value, lineIndex) => (
                 Array.from({ length: 8 }, (_value, columnIndex) => (
@@ -131,7 +128,7 @@ export default function Table ({state}: {state: any}) {
 
     return (
         <Grid container direction="row" alignItems="center" justifyContent="center"
-            sx={tableStyle} onClick = {() => setData(cleanData)}>
+            sx={tableStyle} onClick = {() => setData({...data, possibleMoves: []})}>
             {tableRendering}
         </Grid>
     )
