@@ -11,13 +11,13 @@ export default function Scoreboard({state}: {state: any}) {
         fontSize: '2.5rem',
       },
       [theme.breakpoints.up('sm')]: {
-        fontSize: '4rem',
+        fontSize: '3rem',
       },
       [theme.breakpoints.up('md')]: {
-        fontSize: '5rem',
+        fontSize: '4rem',
       },
       [theme.breakpoints.up('lg')]: {
-        fontSize: '5rem',
+        fontSize: '4.5rem',
       }
     };
 

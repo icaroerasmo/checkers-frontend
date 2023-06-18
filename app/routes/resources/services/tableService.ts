@@ -12,6 +12,7 @@ const cleanTable: TableResponse = {
     "captures":0
   }
 
+let newGame = false;
 
 export async function userMove (userMove: UserMove): Promise<TableResponse> {
 
@@ -38,6 +39,11 @@ export async function minimaxMove (gameSession: GameSession): Promise<TableRespo
 }
 
 export async function currentState (gameSession: GameSession): Promise<TableResponse> {
+
+    if(!newGame) {
+        newGame = true
+        return cleanTable;
+    }
 
     try {
 

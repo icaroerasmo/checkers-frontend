@@ -54,7 +54,9 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  minWidth: "300px",
+  maxWidth: "500px",
+  width: "30%",
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -62,14 +64,14 @@ const style = {
 };
 
 export default function SettingsModal({state}: {state:any}) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <Grid container direction="row" alignItems="center" justifyContent="flex-end">
         <Grid item>
-            <Button variant="outlined" onClick={handleOpen} endIcon={<FontAwesomeIcon icon={faGear}/>}>
+            <Button variant="contained" onClick={handleOpen} endIcon={<FontAwesomeIcon icon={faGear}/>}>
                 Settings
             </Button>
             <Modal

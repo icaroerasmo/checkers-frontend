@@ -7,7 +7,6 @@ import Table from "./resources/components/table";
 import { movesCoreTransformer } from "./resources/util/helpers";
 import Scoreboard from "./resources/components/scoreboard";
 import { Box, Grid } from "@mui/material";
-import Settings from "./resources/components/settings";
 import {v4 as uuid} from 'uuid';
 import SettingsModal from "./resources/components/settingsModal";
 
@@ -15,7 +14,19 @@ export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
 };
 
-const sessionId = uuid()
+const getUuid = () : string => {
+  let tableId : string | null = '';
+  if (typeof window !== 'undefined') {
+    tableId = localStorage.getItem("tableId");
+    if(!tableId) {
+      tableId = uuid();
+      localStorage.setItem("tableId", tableId);
+    }
+  }
+  return tableId;
+}
+
+const sessionId = getUuid()
 
 export async function loader() {
   
