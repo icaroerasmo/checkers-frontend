@@ -53,7 +53,7 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(props, re
 
 const style = {
   position: 'absolute' as 'absolute',
-  overflow: 'scroll',
+  overflowY: 'auto',
   maxHeight: '300px',
   borderRadius: '15px',
   top: '50%',
