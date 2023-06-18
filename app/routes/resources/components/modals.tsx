@@ -75,7 +75,9 @@ function LogModal({open, handleOpen, handleClose, state}: {open: boolean, handle
     let logs = '';
 
     if(data.tableResponse.movesLog) {
-        logs = data.tableResponse.movesLog.map((x:string) => <p style={{color: x.includes('Red') ? PLAYER_1_PIECE_COLOR : PLAYER_2_PIECE_COLOR}}>{x}</p>)
+        logs = data.tableResponse.movesLog.map((x:string) => 
+            <p style={{color: x.includes('Red') ?
+             PLAYER_1_PIECE_COLOR : PLAYER_2_PIECE_COLOR}}>{x}</p>)
     }
     
     return (
