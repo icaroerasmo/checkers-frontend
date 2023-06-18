@@ -25,18 +25,14 @@ export default function Scoreboard({state}: {state: any}) {
       <ThemeProvider theme={theme}>
         <Grid container item xs={12} direction="row" alignItems="center" justifyContent="center" sx={{textAlign: "center"}}>
           <Grid item xs={6}>
-            <div>
-              <Typography sx={{color: PLAYER_1_PIECE_COLOR}} variant="h1" component="h2" mt={2}>
-                Red {data.tableResponse.movesCore.redPieces.length}
-              </Typography>
-            </div>
+            <Typography sx={{color: PLAYER_1_PIECE_COLOR}} variant="h1" component="h2" mt={2}>
+              Red {data.tableResponse.movesCore.redPieces.length}
+            </Typography>
           </Grid>
           <Grid item xs={6}>
-            <div>
-              <Typography sx={{color: PLAYER_2_PIECE_COLOR}} variant="h1" component="h2" mt={2}>
-                {data.tableResponse.movesCore.bluePieces.length} Blue
-              </Typography>
-            </div>
+            <Typography sx={{color: PLAYER_2_PIECE_COLOR}} variant="h1" component="h2" mt={2}>
+              {data.tableResponse.movesCore.bluePieces.length} Blue
+            </Typography>
           </Grid>
         </Grid>
       </ThemeProvider>
