@@ -9,6 +9,7 @@ import Scoreboard from "./resources/components/scoreboard";
 import { Box, Grid } from "@mui/material";
 import Settings from "./resources/components/settings";
 import {v4 as uuid} from 'uuid';
+import SettingsModal from "./resources/components/settingsModal";
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
@@ -42,12 +43,10 @@ export default function Index() {
     <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"100%"}}>
       <Grid container direction="row" alignItems="center" justifyContent="center" sx={{minWidth: "300px", maxWidth: "1300px"}}>
         <Grid container lg={7} md={7} xs={12} direction="row" alignItems="center" justifyContent="center">
-          <Scoreboard state={state}/>
+          <SettingsModal state={state}></SettingsModal>
+          <Box sx={{ p: 0.5 }}/>
           <Table state={state} />
-        </Grid>
-        <Box sx={{ p: 2 }}/>
-        <Grid container lg={3} md={3} xs={12} direction="row" alignItems="center" justifyContent="flex-end">
-          <Settings state={state}/>
+          <Scoreboard state={state}/>
         </Grid>
       </Grid>
     </Grid>

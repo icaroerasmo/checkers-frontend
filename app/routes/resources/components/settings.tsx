@@ -4,7 +4,7 @@ import { useState } from "react";
 import { setSettings } from "../services/tableService";
 import { movesCoreTransformer } from "../util/helpers";
 
-export default function Settings({state}: {state:any}) {
+export default function Settings({callback, state}: {callback: Function, state: any}) {
 
     const [data, setData] = state;
 
@@ -43,6 +43,7 @@ export default function Settings({state}: {state:any}) {
         setSettings(settings).then((response) => {
             response.movesCore = movesCoreTransformer(response.movesCore)
             setData({sessionId: settings.sessionId, player: settings.player, tableResponse: response, possibleMoves: []})
+            callback();
         })
     }
 
