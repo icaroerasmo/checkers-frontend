@@ -1,6 +1,6 @@
 import { GameSession, TableResponse, UserMove, AutomatedMove, PossibleMove, MovesCore, PieceType, Settings } from "../models/types";
 
-const baseUrl = 'http://localhost:8080/api/v1';
+const baseUrl = 'http://192.168.1.83:8080/api/v1';
 
 const cleanTable: TableResponse = {
     "movesCore":{
