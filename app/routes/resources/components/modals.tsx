@@ -53,8 +53,6 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(props, re
 
 const style = {
   position: 'absolute' as 'absolute',
-  overflowY: 'auto',
-  maxHeight: '300px',
   borderRadius: '15px',
   top: '50%',
   left: '50%',
@@ -100,9 +98,9 @@ function LogModal({open, handleOpen, handleClose, state}: {open: boolean, handle
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <div>
+                        <Grid container sx={{overflowY: 'auto', maxHeight: '300px'}}>
                             {logs}
-                        </div>
+                        </Grid>
                     </Box>
                 </Fade>
             </Modal>
