@@ -3,12 +3,13 @@ import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import { useSpring, animated } from '@react-spring/web';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { faFileLines, faGear } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Settings from './settings';
 import { MouseEventHandler } from 'react';
 import { PLAYER_2_PIECE_COLOR, PLAYER_1_PIECE_COLOR } from '../constants/colors';
+import { PieceType } from '../models/types';
 
 interface FadeProps {
   children: React.ReactElement;
@@ -74,8 +75,11 @@ function LogModal({open, handleOpen, handleClose, state}: {open: boolean, handle
 
     if(data.tableResponse.movesLog) {
         logs = data.tableResponse.movesLog.map((x:string) => 
-            <p style={{color: x.includes('Red') ?
-             PLAYER_1_PIECE_COLOR : PLAYER_2_PIECE_COLOR}}>{x}</p>)
+              (<div style={{padding: "2px", 
+                color: x.includes("Red") ? 
+                  PLAYER_1_PIECE_COLOR : PLAYER_2_PIECE_COLOR}}>{x}</div>
+              )
+            )
     }
     
     return (
@@ -98,8 +102,11 @@ function LogModal({open, handleOpen, handleClose, state}: {open: boolean, handle
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <Grid container sx={{overflowY: 'auto', maxHeight: '300px'}}>
+                        <Typography variant="h6" component="h6">Logs</Typography>
+                        <Grid container sx={{backgroundColor: '#ccc', overflowY: 'scroll', height: '300px'}}>
+                          <div>
                             {logs}
+                          </div>
                         </Grid>
                     </Box>
                 </Fade>
