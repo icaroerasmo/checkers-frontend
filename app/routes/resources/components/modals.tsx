@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Settings from './settings';
 import { MouseEventHandler } from 'react';
 import { PLAYER_2_PIECE_COLOR, PLAYER_1_PIECE_COLOR } from '../constants/colors';
-import { PieceType } from '../models/types';
 
 interface FadeProps {
   children: React.ReactElement;

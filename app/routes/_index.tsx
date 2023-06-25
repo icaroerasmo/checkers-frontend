@@ -11,7 +11,7 @@ import {v4 as uuid} from 'uuid';
 import { Modals } from "./resources/components/modals";
 
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "New Remix App" }];
+  return [{ title: "Checkers Game" }];
 };
 
 const getUuid = () : string => {
