@@ -95,7 +95,7 @@ export default function Table ({state}: {state: any}) {
     }
 
     const tableRenderer = (lineIndex: number, columnIndex: number) => (
-        <Grid container item xs={1.5} direction="row" alignItems="center"
+        <Grid container key={'cell_'+lineIndex+'_'+columnIndex} item xs={1.5} direction="row" alignItems="center"
                 justifyContent="center" sx={lineStyle(lineIndex, columnIndex)}>
             <Grid container onClick = {() => doUserMove(lineIndex, columnIndex)}
                     sx={pieceWrapperStyle(data.possibleMoves, lineIndex, columnIndex)}>

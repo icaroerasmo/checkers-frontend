@@ -56,7 +56,7 @@ export default function Settings({callback, state}: {callback: Function, state: 
                         label="Difficulty Level" value={settings.difficultyLevel}
                         onChange={saveDiffLevel}>
                         {difficultyOptions.map((op, index) => (
-                            <MenuItem value={op}> {nameExtractor(op)} </MenuItem>
+                            <MenuItem key={'difficulty_'+index} value={op}> {nameExtractor(op)} </MenuItem>
                         ))}
                     </Select>
                 </FormControl>
@@ -68,7 +68,7 @@ export default function Settings({callback, state}: {callback: Function, state: 
                         label="Player" value={settings.player}
                         onChange={savePlayerTurn}>
                         {playerOptions.map((op, index) => (
-                            <MenuItem value={op}> {nameExtractor(op)} </MenuItem>
+                            <MenuItem key={'player_'+index} value={op}> {nameExtractor(op)} </MenuItem>
                         ))}
                     </Select>
                 </FormControl>

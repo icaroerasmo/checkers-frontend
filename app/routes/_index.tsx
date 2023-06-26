@@ -41,19 +41,21 @@ export async function loader() {
 
 export default function Index() {
 
+  const tableResponse = useLoaderData();
+
   let tableState = () : {sessionId: string, player: PieceType, tableResponse: TableResponse, possibleMoves: PossibleMove[]} => ({
     sessionId,
     player: PieceType.RED,
-    tableResponse: useLoaderData(),
+    tableResponse,
     possibleMoves: []
   })
 
   const state = useState(tableState);
 
   return (
-    <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"100%"}}>
+    <Grid container direction="row" alignItems="center" justifyContent="center" sx={{height:"100%"}}>
       <Grid container direction="row" alignItems="center" justifyContent="center" sx={{minWidth: "300px", maxWidth: "1300px"}}>
-        <Grid container lg={7} md={7} xs={12} direction="row" alignItems="center" justifyContent="center">
+        <Grid container item lg={7} md={7} xs={12} direction="row" alignItems="center" justifyContent="center">
           <Modals state={state}></Modals>
           <Box sx={{ p: 0.5 }}/>
           <Table state={state} />

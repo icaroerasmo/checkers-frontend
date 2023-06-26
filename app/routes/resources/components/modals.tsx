@@ -73,12 +73,12 @@ function LogModal({open, handleOpen, handleClose, state}: {open: boolean, handle
     let logs = '';
 
     if(data.tableResponse.movesLog) {
-        logs = data.tableResponse.movesLog.map((x:string) => 
-              (<div style={{padding: "2px", 
+        logs = data.tableResponse.movesLog.map((x:string, index: number) => 
+              <div key={index} style={{padding: "2px", 
                 color: x.includes("Red") ? 
-                  PLAYER_1_PIECE_COLOR : PLAYER_2_PIECE_COLOR}}>{x}</div>
-              )
-            )
+                  PLAYER_1_PIECE_COLOR : PLAYER_2_PIECE_COLOR}}>
+                  {x}
+              </div>)
     }
     
     return (
